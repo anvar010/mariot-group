@@ -92,7 +92,7 @@ export default function Brands() {
             >
               <div>
                 <span className="eyebrow eyebrow-blue">Full Directory</span>
-                <h2 className="h2" style={{ marginTop: '1rem' }}>Every brand, A to Z</h2>
+                <h2 className="h2" style={{ marginTop: '1rem' }}>Every brand we supply</h2>
               </div>
               <p className="p-large" style={{ maxWidth: '380px' }}>
                 Looking for something specific? Search below — and if a manufacturer

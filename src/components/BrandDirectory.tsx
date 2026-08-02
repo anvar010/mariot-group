@@ -4,37 +4,17 @@ import { useMemo, useState } from 'react';
 import Image from 'next/image';
 import { BRANDS } from '@/lib/brands';
 
-/** First character used to group a brand — digits all sit under '#'. */
-function initial(name: string) {
-  const char = name[0].toUpperCase();
-  return /[A-Z]/.test(char) ? char : '#';
-}
-
 export default function BrandDirectory() {
   const [query, setQuery] = useState('');
 
-  const groups = useMemo(() => {
+  const matches = useMemo(() => {
+    const sorted = [...BRANDS].sort((a, b) => a.name.localeCompare(b.name));
     const term = query.trim().toLowerCase();
-    const matches = term
-      ? BRANDS.filter((brand) => brand.name.toLowerCase().includes(term))
-      : BRANDS;
-
-    const byLetter = new Map<string, typeof BRANDS>();
-    for (const brand of [...matches].sort((a, b) => a.name.localeCompare(b.name))) {
-      const key = initial(brand.name);
-      const bucket = byLetter.get(key);
-      if (bucket) bucket.push(brand);
-      else byLetter.set(key, [brand]);
-    }
-    return [...byLetter.entries()];
+    return term ? sorted.filter((brand) => brand.name.toLowerCase().includes(term)) : sorted;
   }, [query]);
-
-  const count = groups.reduce((total, [, list]) => total + list.length, 0);
-  const activeLetters = new Set(groups.map(([letter]) => letter));
 
   return (
     <>
-      {/* Search + A–Z rail */}
       <div className="brand-toolbar">
         <div style={{ position: 'relative', flex: '1 1 260px', maxWidth: '380px' }}>
           <svg
@@ -63,50 +43,36 @@ export default function BrandDirectory() {
         </div>
 
         <p style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--ink-soft)', whiteSpace: 'nowrap' }}>
-          {count} {count === 1 ? 'Brand' : 'Brands'}
+          {matches.length} {matches.length === 1 ? 'Brand' : 'Brands'}
         </p>
-
-        <nav className="brand-az" aria-label="Jump to letter">
-          {'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map((letter) =>
-            activeLetters.has(letter) ? (
-              <a key={letter} href={`#brand-${letter}`}>{letter}</a>
-            ) : (
-              <span key={letter} aria-hidden>{letter}</span>
-            ),
-          )}
-        </nav>
       </div>
 
-      {count === 0 ? (
+      {matches.length === 0 ? (
         <p className="p-large" style={{ padding: '3rem 0' }}>
-          No brand matches “{query}”. We supply well beyond this list — <a href="/contact" style={{ color: 'var(--primary)', fontWeight: 600 }}>ask us about a specific manufacturer</a>.
+          No brand matches “{query}”. We supply well beyond this list —{' '}
+          <a href="/contact" style={{ color: 'var(--primary)', fontWeight: 600 }}>
+            ask us about a specific manufacturer
+          </a>
+          .
         </p>
       ) : (
-        groups.map(([letter, list]) => (
-          <section key={letter} id={`brand-${letter}`} style={{ scrollMarginTop: '7rem', marginBottom: '2.5rem' }}>
-            <div className="brand-letter">
-              <span>{letter}</span>
-              <span aria-hidden className="brand-letter-rule" />
+        <div className="brand-grid">
+          {matches.map((brand) => (
+            /* The name carries in alt/title rather than a caption — the logos are
+               the identification, and 98 repeated captions only add noise. */
+            <div key={brand.file} className="brand-cell" title={brand.name}>
+              <span className="brand-cell-logo">
+                <Image
+                  src={`/brands/${brand.file}`}
+                  alt={brand.name}
+                  fill
+                  sizes="(max-width: 768px) 45vw, 200px"
+                  style={{ objectFit: 'contain' }}
+                />
+              </span>
             </div>
-
-            <div className="brand-grid">
-              {list.map((brand) => (
-                <div key={brand.file} className="brand-cell">
-                  <span className="brand-cell-logo">
-                    <Image
-                      src={`/brands/${brand.file}`}
-                      alt={`${brand.name} logo`}
-                      fill
-                      sizes="(max-width: 768px) 40vw, 180px"
-                      style={{ objectFit: 'contain' }}
-                    />
-                  </span>
-                  <span className="brand-cell-name">{brand.name}</span>
-                </div>
-              ))}
-            </div>
-          </section>
-        ))
+          ))}
+        </div>
       )}
     </>
   );
