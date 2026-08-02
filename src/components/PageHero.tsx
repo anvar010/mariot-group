@@ -84,7 +84,7 @@ export default function PageHero({
                 <div key={stat.label}>
                   <div
                     style={{
-                      fontFamily: 'var(--font-display)',
+                      fontFamily: 'var(--font-display)', fontWeight: 700,
                       fontSize: 'clamp(1.9rem, 4vw, 2.9rem)',
                       lineHeight: 1,
                       color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)',

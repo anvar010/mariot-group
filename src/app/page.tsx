@@ -240,13 +240,13 @@ export default function Home() {
                 </div>
 
                 {/* Since 2004 chip */}
-                <div style={{ position: 'absolute', top: '-16px', right: '18px', backgroundColor: 'var(--accent)', color: '#fff', fontFamily: 'var(--font-display)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.06em', padding: '0.5rem 0.9rem', zIndex: 3 }}>
+                <div style={{ position: 'absolute', top: '-16px', right: '18px', backgroundColor: 'var(--accent)', color: '#fff', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.9rem', letterSpacing: '0.06em', padding: '0.5rem 0.9rem', zIndex: 3 }}>
                   Since 2004
                 </div>
 
                 {/* Floating stat card */}
                 <div style={{ position: 'absolute', bottom: '-22px', left: '18px', backgroundColor: 'var(--ink)', color: '#fff', display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.9rem 1.4rem', zIndex: 3 }}>
-                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', color: 'var(--primary)', lineHeight: 1 }}>500+</span>
+                  <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.75rem', color: 'var(--primary)', lineHeight: 1 }}>500+</span>
                   <span style={{ fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.85)' }}>Delivered<br />Projects</span>
                 </div>
               </div>
@@ -260,7 +260,7 @@ export default function Home() {
           <div className="marquee-track" style={{ animationDuration: '45s' }}>
             {[...HOSPITALITY_CLIENTS, ...HOSPITALITY_CLIENTS].map((client, i) => (
               <span key={`${client}-${i}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '2.5rem', paddingRight: '2.5rem', whiteSpace: 'nowrap' }}>
-                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{client}</span>
+                <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.1rem', letterSpacing: '0.08em' }}>{client}</span>
                 <span aria-hidden style={{ color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)', fontSize: '0.8rem' }}>✦</span>
               </span>
             ))}
@@ -293,7 +293,7 @@ export default function Home() {
                   { value: 7, suffix: '', label: 'Emirates Served' },
                 ].map((stat, i) => (
                   <div key={stat.label} style={{ padding: 'clamp(0.9rem, 1.8vw, 1.35rem)', backgroundColor: i % 2 === 0 ? 'var(--paper)' : '#ffffff' }}>
-                    <div style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.9rem, 3vw, 2.6rem)', lineHeight: 1, color: i === 1 ? 'var(--accent)' : 'var(--primary)' }}>
+                    <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(1.9rem, 3vw, 2.6rem)', lineHeight: 1, color: i === 1 ? 'var(--accent)' : 'var(--primary)' }}>
                       <AnimatedCounter targetValue={stat.value} suffix={stat.suffix} duration={2200} />
                     </div>
                     <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginTop: '0.35rem', color: 'var(--ink-soft)' }}>{stat.label}</p>
@@ -331,7 +331,7 @@ export default function Home() {
                     />
                   )}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <span className="sc-num" style={{ fontFamily: 'var(--font-display)', fontSize: '0.95rem', color: i % 3 === 1 ? 'var(--accent)' : 'var(--primary)' }}>
+                    <span className="sc-num" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem', color: i % 3 === 1 ? 'var(--accent)' : 'var(--primary)' }}>
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <span className="sc-arrow">
@@ -342,7 +342,7 @@ export default function Home() {
                     <span className="sc-icon" style={{ display: 'block', marginBottom: '0.9rem' }}>
                       <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">{cat.icon}</svg>
                     </span>
-                    <h3 className="sc-title" style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 'clamp(1.1rem, 1.8vw, 1.4rem)', textTransform: 'uppercase', letterSpacing: '0.02em', lineHeight: 1.1 }}>{cat.name}</h3>
+                    <h3 className="sc-title" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(1.1rem, 1.8vw, 1.4rem)', letterSpacing: '0.02em', lineHeight: 1.1 }}>{cat.name}</h3>
                   </div>
                 </Link>
               ))}
@@ -370,8 +370,8 @@ export default function Home() {
             {HUB_SERVICES.map((service, i) => (
               <ScrollReveal key={service.title} delay={i * 100}>
                 <div className="cat-card hub-card" style={{ backgroundColor: 'var(--ink)', padding: 'clamp(1.75rem, 3vw, 2.5rem)', height: '100%', display: 'flex', flexDirection: 'column', gap: '1rem', minHeight: '260px' }}>
-                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '0.95rem', color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)' }}>{String(i + 1).padStart(2, '0')}</span>
-                  <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 'clamp(1.3rem, 2.2vw, 1.7rem)', textTransform: 'uppercase', lineHeight: 1.1 }}>{service.title}</h3>
+                  <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem', color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)' }}>{String(i + 1).padStart(2, '0')}</span>
+                  <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(1.3rem, 2.2vw, 1.7rem)', lineHeight: 1.1 }}>{service.title}</h3>
                   <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.95rem', lineHeight: 1.6, flexGrow: 1 }}>{service.desc}</p>
                   <Link href="/business-hub" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)', fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
                     {service.cta} <span className="cat-arrow">→</span>
@@ -410,10 +410,10 @@ export default function Home() {
                     style={{ height: '260px', border: 'none', borderBottom: '1px solid var(--rule)' }}
                   >
                     <span style={{ position: 'absolute', top: '1.25rem', left: '1.25rem', zIndex: 2, backgroundColor: 'var(--paper)', color: 'var(--ink)', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', padding: '0.4rem 0.75rem' }}>{project.tag}</span>
-                    <span aria-hidden style={{ position: 'absolute', bottom: '0.25rem', right: '1rem', zIndex: 2, fontFamily: 'var(--font-display)', fontSize: '5rem', color: 'rgba(255,255,255,0.32)', lineHeight: 1 }}>{String(i + 1).padStart(2, '0')}</span>
+                    <span aria-hidden style={{ position: 'absolute', bottom: '0.25rem', right: '1rem', zIndex: 2, fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '5rem', color: 'rgba(255,255,255,0.32)', lineHeight: 1 }}>{String(i + 1).padStart(2, '0')}</span>
                   </Figure>
                   <div style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', backgroundColor: 'var(--surface)' }}>
-                    <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: '1.25rem', textTransform: 'uppercase', lineHeight: 1.15 }}>{project.title}</h3>
+                    <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.25rem', lineHeight: 1.15 }}>{project.title}</h3>
                     <span style={{ color: 'var(--primary)', flexShrink: 0 }}>{arrowIcon}</span>
                   </div>
                 </Link>
@@ -446,7 +446,7 @@ export default function Home() {
                       { value: 7, suffix: '', label: 'Emirates' },
                     ].map((stat, i) => (
                       <div key={stat.label}>
-                        <div style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)', lineHeight: 1 }}>
+                        <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)', lineHeight: 1 }}>
                           <AnimatedCounter targetValue={stat.value} suffix={stat.suffix} duration={2200} />
                         </div>
                         <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', marginTop: '0.4rem', fontWeight: 600 }}>{stat.label}</p>
@@ -465,11 +465,11 @@ export default function Home() {
               <div style={{ borderTop: '1px solid var(--rule)' }}>
                 {WHY_MARIOT.map((reason, i) => (
                   <div key={reason.title} className="editorial-row" style={{ display: 'flex', gap: '1.25rem', alignItems: 'baseline', padding: '0.95rem 1rem', borderBottom: '1px solid var(--rule)' }}>
-                    <span style={{ fontFamily: 'var(--font-display)', fontSize: '0.95rem', color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)', width: '2rem', flexShrink: 0 }}>
+                    <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem', color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)', width: '2rem', flexShrink: 0 }}>
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <div>
-                      <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 'clamp(1.2rem, 2vw, 1.55rem)', textTransform: 'uppercase', letterSpacing: '0.02em' }}>{reason.title}</h3>
+                      <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(1.2rem, 2vw, 1.55rem)', letterSpacing: '0.02em' }}>{reason.title}</h3>
                       <p style={{ color: 'var(--ink-soft)', fontSize: '0.95rem', marginTop: '0.35rem', lineHeight: 1.55 }}>{reason.desc}</p>
                     </div>
                   </div>
@@ -516,7 +516,7 @@ export default function Home() {
                   style={{ border: 'none', borderBottom: '1px solid rgba(255,255,255,0.2)' }}
                 />
                 <div style={{ padding: '0.9rem 1.5rem', borderBottom: '1px solid rgba(255,255,255,0.2)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-                  <span style={{ fontFamily: 'var(--font-display)', textTransform: 'uppercase', fontSize: '1rem', letterSpacing: '0.05em' }}>Our Factory</span>
+                  <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1rem', letterSpacing: '0.05em' }}>Our Factory</span>
                   <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.55)', fontWeight: 600 }}>Every seam, every corner — built by our own team.</span>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1px', backgroundColor: 'rgba(255,255,255,0.2)' }}>
@@ -529,7 +529,7 @@ export default function Home() {
                 </div>
                 <div style={{ padding: '0.9rem 1.5rem', borderTop: '1px solid rgba(255,255,255,0.2)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.55)' }}>Delivery</span>
-                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.35rem', color: 'var(--primary)' }}>10–14 DAYS</span>
+                  <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.35rem', color: 'var(--primary)' }}>10–14 DAYS</span>
                 </div>
               </div>
             </ScrollReveal>
@@ -562,7 +562,7 @@ export default function Home() {
               {GCC_MARKETS.map((market) => (
                 <div key={market.name} style={{ backgroundColor: market.tag === 'Home Base' ? 'var(--ink)' : '#ffffff', color: market.tag === 'Home Base' ? 'var(--paper)' : 'var(--ink)', padding: '1.75rem 1.25rem', textAlign: 'center' }}>
                   <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{market.flag}</div>
-                  <div style={{ fontFamily: 'var(--font-display)', textTransform: 'uppercase', fontSize: '1.1rem' }}>{market.name}</div>
+                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.1rem' }}>{market.name}</div>
                   <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', marginTop: '0.4rem', color: market.tag === 'Home Base' ? 'var(--primary)' : 'var(--ink-soft)' }}>{market.tag}</div>
                 </div>
               ))}
@@ -583,7 +583,7 @@ export default function Home() {
                 { value: '24/7', label: 'Support Availability' },
               ].map((stat, i) => (
                 <div key={stat.label} style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem' }}>
-                  <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3rem)', color: i === 1 ? 'var(--accent)' : 'var(--primary)' }}>{stat.value}</span>
+                  <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(2rem, 4vw, 3rem)', color: i === 1 ? 'var(--accent)' : 'var(--primary)' }}>{stat.value}</span>
                   <span style={{ fontSize: '0.85rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-soft)' }}>{stat.label}</span>
                 </div>
               ))}
@@ -636,7 +636,7 @@ export default function Home() {
                   { value: 30, label: 'Lower annual cost', color: 'var(--primary-deep)' },
                 ].map((stat) => (
                   <div key={stat.label} style={{ backgroundColor: 'var(--surface)', padding: 'clamp(1rem, 2vw, 1.4rem)' }}>
-                    <span style={{ display: 'block', fontFamily: 'var(--font-display)', fontSize: 'clamp(1.75rem, 3.4vw, 2.5rem)', lineHeight: 1, color: stat.color }}>
+                    <span style={{ display: 'block', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(1.75rem, 3.4vw, 2.5rem)', lineHeight: 1, color: stat.color }}>
                       <AnimatedCounter targetValue={stat.value} suffix="%" duration={2000} />
                     </span>
                     <p style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-soft)', lineHeight: 1.35, marginTop: '0.5rem' }}>{stat.label}</p>
@@ -681,8 +681,8 @@ export default function Home() {
             {PACKAGES.map((pkg, i) => (
               <ScrollReveal key={pkg.title} delay={i * 80}>
                 <div className="cat-card pkg-card" style={{ backgroundColor: i === 4 ? 'var(--ink)' : '#ffffff', color: i === 4 ? 'var(--paper)' : 'var(--ink)', padding: 'clamp(1.75rem, 3vw, 2.25rem)', height: '100%', display: 'flex', flexDirection: 'column', gap: '1rem', minHeight: '280px' }}>
-                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '0.95rem', color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)' }}>{String(i + 1).padStart(2, '0')}</span>
-                  <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 'clamp(1.3rem, 2.2vw, 1.6rem)', textTransform: 'uppercase', lineHeight: 1.1 }}>{pkg.title}</h3>
+                  <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem', color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)' }}>{String(i + 1).padStart(2, '0')}</span>
+                  <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(1.3rem, 2.2vw, 1.6rem)', lineHeight: 1.1 }}>{pkg.title}</h3>
                   <p style={{ color: i === 4 ? 'rgba(255,255,255,0.6)' : 'var(--ink-soft)', fontSize: '0.95rem', lineHeight: 1.6, flexGrow: 1 }}>{pkg.desc}</p>
                   <Link href="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: i === 4 ? 'var(--primary)' : 'var(--accent)', fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
                     Request Package <span className="cat-arrow">→</span>
@@ -711,12 +711,12 @@ export default function Home() {
             {TESTIMONIALS.map((t, i) => (
               <ScrollReveal key={t.name} delay={i * 120}>
                 <figure style={{ backgroundColor: 'var(--ink)', padding: 'clamp(1.75rem, 3vw, 2.5rem)', height: '100%', display: 'flex', flexDirection: 'column', gap: '1.75rem', margin: 0 }}>
-                  <span aria-hidden style={{ fontFamily: 'var(--font-display)', fontSize: '3rem', lineHeight: 0.5, color: t.color, marginTop: '1rem' }}>“</span>
+                  <span aria-hidden style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '3rem', lineHeight: 0.5, color: t.color, marginTop: '1rem' }}>“</span>
                   <blockquote style={{ fontSize: '1.05rem', lineHeight: 1.65, color: 'rgba(255,255,255,0.85)', flexGrow: 1, margin: 0 }}>
                     {t.quote}
                   </blockquote>
                   <figcaption style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <span style={{ width: '46px', height: '46px', backgroundColor: t.color, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-display)', fontSize: '0.95rem', flexShrink: 0 }}>{t.initials}</span>
+                    <span style={{ width: '46px', height: '46px', backgroundColor: t.color, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem', flexShrink: 0 }}>{t.initials}</span>
                     <span>
                       <span style={{ display: 'block', fontWeight: 700 }}>{t.name}</span>
                       <span style={{ display: 'block', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)', marginTop: '0.25rem' }}>{t.role}</span>
@@ -747,9 +747,9 @@ export default function Home() {
                 <h2 className="h2" style={{ marginTop: '1.25rem' }}>Trusted Global Brands</h2>
                 <p className="p-large" style={{ marginTop: '1rem' }}>We partner with the world’s leading manufacturers.</p>
               </div>
-              <a href="https://mariotstore.com" target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ padding: '0.85rem 1.75rem' }}>
+              <Link href="/brands" className="btn-secondary" style={{ padding: '0.85rem 1.75rem' }}>
                 View all brands →
-              </a>
+              </Link>
             </div>
           </ScrollReveal>
         </div>
@@ -787,7 +787,7 @@ export default function Home() {
                     <span className={`figure-tag${i === 1 ? ' on-accent' : ' on-primary'}`}>{post.tag}</span>
                   </Figure>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', padding: 'clamp(1.5rem, 3vw, 2rem)', flexGrow: 1 }}>
-                    <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 'clamp(1.2rem, 2.2vw, 1.5rem)', textTransform: 'uppercase', lineHeight: 1.15, flexGrow: 1 }}>{post.title}</h3>
+                    <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(1.2rem, 2.2vw, 1.5rem)', lineHeight: 1.15, flexGrow: 1 }}>{post.title}</h3>
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ink)' }}>
                       Read Article <span className="cat-arrow" style={{ color: 'var(--primary)' }}>→</span>
                     </span>
@@ -831,7 +831,7 @@ export default function Home() {
                 className="figure-zoom"
                 style={{ border: '1px solid rgba(255,255,255,0.3)' }}
               >
-                <span aria-hidden style={{ position: 'absolute', inset: 0, zIndex: 2, display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end', padding: '1.5rem', fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', lineHeight: 0.9, textTransform: 'uppercase', color: 'rgba(255,255,255,0.9)', textAlign: 'right', textShadow: '0 2px 24px rgba(22,19,14,0.6)', userSelect: 'none' }}>
+                <span aria-hidden style={{ position: 'absolute', inset: 0, zIndex: 2, display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end', padding: '1.5rem', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', lineHeight: 0.9, color: 'rgba(255,255,255,0.9)', textAlign: 'right', textShadow: '0 2px 24px rgba(22,19,14,0.6)', userSelect: 'none' }}>
                   Mariot<br />Store
                 </span>
               </Figure>
@@ -866,7 +866,7 @@ export default function Home() {
         </div>
 
         {/* Giant editorial wordmark */}
-        <div aria-hidden style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(3.5rem, 12vw, 10rem)', lineHeight: 0.8, textAlign: 'center', textTransform: 'uppercase', color: 'var(--paper)', marginTop: 'clamp(1.5rem, 3vw, 2.5rem)', marginBottom: '-0.09em', userSelect: 'none', letterSpacing: '0.02em' }}>
+        <div aria-hidden style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(3.5rem, 12vw, 10rem)', lineHeight: 0.8, textAlign: 'center', color: 'var(--paper)', marginTop: 'clamp(1.5rem, 3vw, 2.5rem)', marginBottom: '-0.09em', userSelect: 'none', letterSpacing: '0.02em' }}>
           Mari<span style={{ color: 'var(--primary)' }}>o</span>t
         </div>
       </section>

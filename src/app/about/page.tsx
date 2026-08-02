@@ -148,7 +148,7 @@ export default function About() {
                     >
                       <span
                         style={{
-                          fontFamily: 'var(--font-display)',
+                          fontFamily: 'var(--font-display)', fontWeight: 700,
                           fontSize: '0.85rem',
                           color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)',
                           flexShrink: 0,
@@ -201,7 +201,7 @@ export default function About() {
                     >
                       <span
                         style={{
-                          fontFamily: 'var(--font-display)',
+                          fontFamily: 'var(--font-display)', fontWeight: 700,
                           fontSize: '0.85rem',
                           color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)',
                           flexShrink: 0,

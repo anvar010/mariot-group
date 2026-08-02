@@ -90,7 +90,7 @@ export default function Sectors() {
                   <div className="tile-body" style={{ minHeight: '340px' }}>
                     <span
                       style={{
-                        fontFamily: 'var(--font-display)',
+                        fontFamily: 'var(--font-display)', fontWeight: 700,
                         fontSize: '0.9rem',
                         color: i % 3 === 1 ? 'var(--accent)' : 'var(--primary)',
                         marginBottom: 'auto',

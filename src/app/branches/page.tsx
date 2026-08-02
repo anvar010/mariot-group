@@ -116,7 +116,7 @@ export default function Branches() {
                   <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'baseline' }}>
                     <span
                       style={{
-                        fontFamily: 'var(--font-display)',
+                        fontFamily: 'var(--font-display)', fontWeight: 700,
                         fontSize: '0.9rem',
                         color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)',
                         flexShrink: 0,
@@ -128,9 +128,8 @@ export default function Branches() {
                       <h3
                         style={{
                           fontFamily: 'var(--font-display)',
-                          fontWeight: 400,
+                          fontWeight: 700,
                           fontSize: 'clamp(1.2rem, 2.2vw, 1.55rem)',
-                          textTransform: 'uppercase',
                           letterSpacing: '0.02em',
                         }}
                       >

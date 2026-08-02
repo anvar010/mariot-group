@@ -192,7 +192,7 @@ export default function Maintenance() {
                 >
                   <div
                     style={{
-                      fontFamily: 'var(--font-display)',
+                      fontFamily: 'var(--font-display)', fontWeight: 700,
                       fontSize: 'clamp(2.75rem, 5vw, 4rem)',
                       lineHeight: 1,
                       color: stat.color,
@@ -281,9 +281,8 @@ export default function Maintenance() {
                     <h3
                       style={{
                         fontFamily: 'var(--font-display)',
-                        fontWeight: 400,
+                        fontWeight: 700,
                         fontSize: '1.12rem',
-                        textTransform: 'uppercase',
                         letterSpacing: '0.02em',
                         marginBottom: '0.45rem',
                       }}
@@ -378,9 +377,8 @@ export default function Maintenance() {
                     <h3
                       style={{
                         fontFamily: 'var(--font-display)',
-                        fontWeight: 400,
+                        fontWeight: 700,
                         fontSize: 'clamp(1.35rem, 2.4vw, 1.7rem)',
-                        textTransform: 'uppercase',
                         letterSpacing: '0.02em',
                       }}
                     >
@@ -406,7 +404,7 @@ export default function Maintenance() {
                     >
                       <span
                         style={{
-                          fontFamily: 'var(--font-display)',
+                          fontFamily: 'var(--font-display)', fontWeight: 700,
                           fontSize: 'clamp(2rem, 4vw, 2.75rem)',
                           lineHeight: 1,
                           color: featured ? 'var(--primary)' : 'var(--ink)',
@@ -537,7 +535,7 @@ export default function Maintenance() {
                     <span
                       aria-hidden
                       style={{
-                        fontFamily: 'var(--font-display)',
+                        fontFamily: 'var(--font-display)', fontWeight: 700,
                         fontSize: '2.5rem',
                         lineHeight: 0.6,
                         color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)',
@@ -548,7 +546,7 @@ export default function Maintenance() {
                     <div style={{ textAlign: 'right' }}>
                       <div
                         style={{
-                          fontFamily: 'var(--font-display)',
+                          fontFamily: 'var(--font-display)', fontWeight: 700,
                           fontSize: '1.5rem',
                           color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)',
                           lineHeight: 1,

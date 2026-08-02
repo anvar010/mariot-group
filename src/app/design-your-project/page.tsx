@@ -125,7 +125,7 @@ export default function DesignYourProject() {
                 >
                   <div
                     style={{
-                      fontFamily: 'var(--font-display)',
+                      fontFamily: 'var(--font-display)', fontWeight: 700,
                       fontSize: 'clamp(1.65rem, 3vw, 2.35rem)',
                       lineHeight: 1,
                       color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)',
@@ -212,9 +212,8 @@ export default function DesignYourProject() {
                     <h3
                       style={{
                         fontFamily: 'var(--font-display)',
-                        fontWeight: 400,
+                        fontWeight: 700,
                         fontSize: 'clamp(1.25rem, 2.2vw, 1.5rem)',
-                        textTransform: 'uppercase',
                         letterSpacing: '0.02em',
                         marginBottom: '0.6rem',
                       }}
@@ -259,7 +258,7 @@ export default function DesignYourProject() {
                 >
                   <span
                     style={{
-                      fontFamily: 'var(--font-display)',
+                      fontFamily: 'var(--font-display)', fontWeight: 700,
                       fontSize: 'clamp(2rem, 5vw, 3.5rem)',
                       lineHeight: 1,
                       color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)',
@@ -279,9 +278,8 @@ export default function DesignYourProject() {
                     <h3
                       style={{
                         fontFamily: 'var(--font-display)',
-                        fontWeight: 400,
+                        fontWeight: 700,
                         fontSize: 'clamp(1.25rem, 2.4vw, 1.7rem)',
-                        textTransform: 'uppercase',
                         letterSpacing: '0.02em',
                       }}
                     >

@@ -15,7 +15,7 @@ const ALL_LINKS = [
   { name: 'Projects', href: '/projects' },
   { name: 'Fabrication', href: '/fabrication' },
   { name: 'Maintenance', href: '/maintenance' },
-  { name: 'Brands', href: '/#brands' },
+  { name: 'Brands', href: '/brands' },
   { name: 'Branches', href: '/branches' },
   { name: 'Contact', href: '/contact' },
 ];
@@ -216,7 +216,7 @@ export default function Header() {
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className="footer-link"
-                style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', padding: '0.85rem 0', fontFamily: 'var(--font-display)', fontSize: '1.35rem', textTransform: 'uppercase', letterSpacing: '0.03em', color: 'var(--ink)' }}
+                style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', padding: '0.85rem 0', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.35rem', letterSpacing: '0.03em', color: 'var(--ink)' }}
               >
                 <span style={{ fontSize: '0.75rem', color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)' }}>{String(i + 1).padStart(2, '0')}</span>
                 {item.name}

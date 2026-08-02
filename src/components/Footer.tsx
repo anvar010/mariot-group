@@ -7,7 +7,7 @@ const QUICK_LINKS = [
   { name: 'Projects', href: '/projects' },
   { name: 'Fabrication', href: '/fabrication' },
   { name: 'Maintenance', href: '/maintenance' },
-  { name: 'Brands', href: '/#brands' },
+  { name: 'Brands', href: '/brands' },
   { name: 'Branches', href: '/branches' },
   { name: 'Contact', href: '/contact' },
 ];
@@ -54,9 +54,8 @@ const SOCIALS = [
 
 const footerHeading: React.CSSProperties = {
   fontFamily: 'var(--font-display)',
-  fontWeight: 400,
+  fontWeight: 700,
   fontSize: '1rem',
-  textTransform: 'uppercase',
   letterSpacing: '0.08em',
   color: '#fff',
   marginBottom: '1.5rem',
@@ -202,7 +201,7 @@ export default function Footer() {
 
       {/* Giant outlined wordmark */}
       <div aria-hidden style={{ overflow: 'hidden', pointerEvents: 'none', userSelect: 'none' }}>
-        <div style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(4rem, 13vw, 12rem)', lineHeight: 0.78, textAlign: 'center', textTransform: 'uppercase', letterSpacing: '0.04em', color: 'transparent', WebkitTextStroke: '1px rgba(255,255,255,0.14)', transform: 'translateY(12%)' }}>
+        <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(4rem, 13vw, 12rem)', lineHeight: 0.78, textAlign: 'center', letterSpacing: '0.04em', color: 'transparent', WebkitTextStroke: '1px rgba(255,255,255,0.14)', transform: 'translateY(12%)' }}>
           Mariot Kitchen
         </div>
       </div>

@@ -1,18 +1,15 @@
 import type { Metadata } from 'next';
-import { Anton, Archivo } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import './globals.css';
 import SmoothScroll from '@/components/SmoothScroll';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-const anton = Anton({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-display',
-});
-
-const archivo = Archivo({
+/* One ordinary sans for the whole site. `--font-display` is kept as a separate
+   variable — it now resolves to the same family, so headings and figures just
+   read as heavier text rather than a different typeface. Pointing it somewhere
+   else later is a one-line change. */
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-body',
@@ -30,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${anton.variable} ${archivo.variable}`}>
+    <html lang="en" className={inter.variable}>
       <body>
         <SmoothScroll>
           <Header />

@@ -126,9 +126,8 @@ export default function BusinessHub() {
                     <h3
                       style={{
                         fontFamily: 'var(--font-display)',
-                        fontWeight: 400,
+                        fontWeight: 700,
                         fontSize: 'clamp(1.2rem, 2.2vw, 1.45rem)',
-                        textTransform: 'uppercase',
                         lineHeight: 1.1,
                       }}
                     >

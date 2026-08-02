@@ -95,9 +95,8 @@ export default function ProjectGallery({ items }: { items: GalleryItem[] }) {
               <h3
                 style={{
                   fontFamily: 'var(--font-display)',
-                  fontWeight: 400,
+                  fontWeight: 700,
                   fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
-                  textTransform: 'uppercase',
                   lineHeight: 1.15,
                   letterSpacing: '0.02em',
                 }}

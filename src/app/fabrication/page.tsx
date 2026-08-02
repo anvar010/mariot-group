@@ -150,9 +150,8 @@ export default function Fabrication() {
                     <h3
                       style={{
                         fontFamily: 'var(--font-display)',
-                        fontWeight: 400,
+                        fontWeight: 700,
                         fontSize: '1.15rem',
-                        textTransform: 'uppercase',
                         letterSpacing: '0.02em',
                         marginBottom: '0.4rem',
                       }}
@@ -203,7 +202,7 @@ export default function Fabrication() {
                 >
                   <span
                     style={{
-                      fontFamily: 'var(--font-display)',
+                      fontFamily: 'var(--font-display)', fontWeight: 700,
                       fontSize: '0.9rem',
                       color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)',
                     }}
@@ -213,9 +212,8 @@ export default function Fabrication() {
                   <h3
                     style={{
                       fontFamily: 'var(--font-display)',
-                      fontWeight: 400,
+                      fontWeight: 700,
                       fontSize: '1.25rem',
-                      textTransform: 'uppercase',
                       margin: '0.85rem 0 0.6rem',
                     }}
                   >

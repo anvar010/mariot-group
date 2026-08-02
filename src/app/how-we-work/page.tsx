@@ -87,7 +87,7 @@ export default function HowWeWork() {
                 >
                   <span
                     style={{
-                      fontFamily: 'var(--font-display)',
+                      fontFamily: 'var(--font-display)', fontWeight: 700,
                       fontSize: 'clamp(2.25rem, 4vw, 3rem)',
                       lineHeight: 1,
                       color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)',
@@ -99,9 +99,8 @@ export default function HowWeWork() {
                   <h3
                     style={{
                       fontFamily: 'var(--font-display)',
-                      fontWeight: 400,
+                      fontWeight: 700,
                       fontSize: 'clamp(1.2rem, 2.2vw, 1.5rem)',
-                      textTransform: 'uppercase',
                       letterSpacing: '0.02em',
                       marginBottom: '0.6rem',
                     }}

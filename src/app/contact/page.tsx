@@ -107,9 +107,8 @@ export default function Contact() {
                   <span style={labelStyle}>{channel.label}</span>
                   <span
                     style={{
-                      fontFamily: 'var(--font-display)',
+                      fontFamily: 'var(--font-display)', fontWeight: 700,
                       fontSize: 'clamp(1.05rem, 2vw, 1.3rem)',
-                      textTransform: 'uppercase',
                       letterSpacing: '0.01em',
                       wordBreak: 'break-word',
                     }}
