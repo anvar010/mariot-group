@@ -1,99 +1,182 @@
 import ScrollReveal from '@/components/ScrollReveal';
+import PageHero from '@/components/PageHero';
+import Figure from '@/components/Figure';
+
+export const metadata = {
+  title: 'Our Branches — Mariot Kitchen Equipment',
+  description:
+    'Mariot showrooms and service centres across Dubai, Abu Dhabi, Al Ain and Sharjah — equipment, consultation, installation and after-sales support.',
+};
+
+const container: React.CSSProperties = {
+  maxWidth: '1320px',
+  margin: '0 auto',
+  padding: '0 var(--gutter)',
+};
+
+const BRANCHES = [
+  {
+    name: 'Dubai Branch',
+    location: 'Deira, Dubai, UAE',
+    email: 'admin@mariotkitchen.com',
+    phone: '+971 4 288 2777',
+    role: 'Head Office & Showroom',
+  },
+  {
+    name: 'Al Ain Branch',
+    location: 'Al Ain Industrial Area, UAE',
+    email: 'alain@mariotkitchen.com',
+    phone: '+971 3 722 7337',
+    role: 'Showroom & Service',
+  },
+  {
+    name: 'Abu Dhabi Muroor Branch',
+    location: 'Muroor Road, Abu Dhabi, UAE',
+    email: 'sales2@mariotkitchen.com',
+    phone: '+971 2 645 9353',
+    role: 'Showroom & Sales',
+  },
+  {
+    name: 'Sharjah Branch',
+    location: 'Al Majaz, Sharjah, UAE',
+    email: 'sales@mariot-group.com',
+    phone: '+971 6 767 7777',
+    role: 'Showroom & Sales',
+  },
+  {
+    name: 'Sharjah Industrial Branch',
+    location: 'Industrial Area, Sharjah, UAE',
+    email: 'factory@mariotkitchen.com',
+    phone: '+971 6 767 7776',
+    role: 'Fabrication Factory',
+  },
+];
+
+const pinIcon = (
+  <svg
+    width="15"
+    height="15"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+    <circle cx="12" cy="10" r="3" />
+  </svg>
+);
 
 export default function Branches() {
-  const branches = [
-    {
-      name: 'Dubai Branch',
-      location: 'Deira, Dubai, UAE',
-      email: 'admin@mariotkitchen.com',
-      phone: '+971 4 288 2777'
-    },
-    {
-      name: 'Al Ain Branch',
-      location: 'Al Ain Industrial Area, UAE',
-      email: 'alain@mariotkitchen.com',
-      phone: '+971 3 722 7337'
-    },
-    {
-      name: 'Abu Dhabi Muroor Branch',
-      location: 'Muroor Road, Abu Dhabi, UAE',
-      email: 'sales2@mariotkitchen.com',
-      phone: '+971 2 645 9353'
-    },
-    {
-      name: 'Sharjah Branch',
-      location: 'Al Majaz, Sharjah, UAE',
-      email: 'sales@mariot-group.com',
-      phone: '+971 6 767 7777'
-    },
-    {
-      name: 'Sharjah Industrial Branch',
-      location: 'Industrial Area, Sharjah, UAE',
-      email: 'factory@mariotkitchen.com',
-      phone: '+971 6 767 7776'
-    }
-  ];
-
   return (
-    <main style={{ paddingTop: '80px', backgroundColor: 'var(--background)' }}>
-      {/* Header Section */}
-      <section style={{ backgroundColor: 'var(--secondary)', padding: 'clamp(3rem, 6vw, 6rem) 1rem', borderBottom: '1px solid var(--glass-border)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
-          <ScrollReveal>
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
-              <span style={{ fontSize: '0.875rem', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--primary)' }}>Locations</span>
-            </div>
-            <h1 className="h1" style={{ marginBottom: '1.5rem', color: 'var(--foreground)' }}>
-              Our <span style={{ color: 'var(--primary)' }}>Branches</span>
-            </h1>
-            <p className="p-large" style={{ maxWidth: '800px', margin: '0 auto' }}>
-              Mariot Kitchen Equipment proudly serves customers across the UAE through strategically located branches. Whether you are planning a new restaurant, hotel, bakery, supermarket, café, or commercial kitchen, our experienced team is ready to provide expert guidance, premium equipment, installation services, and reliable after-sales support.
-            </p>
-            <p className="p-large" style={{ maxWidth: '800px', margin: '1.5rem auto 0 auto', color: 'rgba(0,0,0,0.6)' }}>
-              Visit your nearest Mariot showroom to explore our complete range of commercial kitchen equipment from world-renowned brands and discuss your project with our specialists.
-            </p>
-          </ScrollReveal>
-        </div>
-      </section>
+    <main>
+      <PageHero
+        eyebrow="Locations"
+        title={
+          <>
+            Five branches, <span style={{ color: 'var(--primary)' }}>one standard</span>
+          </>
+        }
+        intro="Mariot serves customers across the UAE through strategically located showrooms and a dedicated fabrication factory. Visit your nearest branch to see the range and discuss your project with a specialist."
+        photo="cafeCounter"
+        stats={[
+          { value: '5', label: 'Branches' },
+          { value: '7', label: 'Emirates Served' },
+          { value: '1', label: 'Own Factory' },
+        ]}
+      />
 
-      {/* Branches Grid */}
-      <section style={{ padding: 'clamp(4rem, 8vw, 8rem) 1rem' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '2rem' }}>
-            {branches.map((branch, index) => (
-              <ScrollReveal key={branch.name} delay={(index % 3) * 100}>
-                <div 
-                  className="glass-panel hover-lift" 
-                  style={{ 
-                    padding: '3rem 2.5rem', 
-                    backgroundColor: 'var(--secondary)', 
-                    height: '100%', 
-                    display: 'flex', 
-                    flexDirection: 'column'
+      {/* ── BRANCH LIST ──────────────────────────────────── */}
+      <section style={{ backgroundColor: 'var(--paper)' }}>
+        <div style={{ ...container, padding: 'clamp(4rem, 8vw, 7rem) var(--gutter)' }}>
+          <ScrollReveal>
+            <div style={{ maxWidth: '640px', marginBottom: '3rem' }}>
+              <span className="eyebrow">Where to find us</span>
+              <h2 className="h2" style={{ marginTop: '1.25rem' }}>
+                Branch directory
+              </h2>
+            </div>
+          </ScrollReveal>
+
+          <div style={{ borderTop: '1px solid var(--rule)' }}>
+            {BRANCHES.map((branch, i) => (
+              <ScrollReveal key={branch.name} delay={i * 70}>
+                <div
+                  className="editorial-row"
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 230px), 1fr))',
+                    gap: '1.25rem',
+                    alignItems: 'center',
+                    padding: 'clamp(1.5rem, 3vw, 2rem) 1rem',
+                    borderBottom: '1px solid var(--rule)',
                   }}
                 >
-                  <h2 style={{ fontSize: 'clamp(1.25rem, 3vw, 1.5rem)', fontWeight: 600, marginBottom: '0.5rem', color: 'var(--foreground)' }}>
-                    {branch.name}
-                  </h2>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'rgba(0,0,0,0.6)', marginBottom: '2rem' }}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'baseline' }}>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '0.9rem',
+                        color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)',
+                        flexShrink: 0,
+                      }}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <div>
+                      <h3
+                        style={{
+                          fontFamily: 'var(--font-display)',
+                          fontWeight: 400,
+                          fontSize: 'clamp(1.2rem, 2.2vw, 1.55rem)',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.02em',
+                        }}
+                      >
+                        {branch.name}
+                      </h3>
+                      <span
+                        style={{
+                          fontSize: '0.68rem',
+                          fontWeight: 700,
+                          letterSpacing: '0.16em',
+                          textTransform: 'uppercase',
+                          color: 'var(--ink-faint)',
+                        }}
+                      >
+                        {branch.role}
+                      </span>
+                    </div>
+                  </div>
+
+                  <span
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      color: 'var(--ink-soft)',
+                      fontSize: '0.93rem',
+                    }}
+                  >
+                    <span style={{ color: 'var(--primary)', flexShrink: 0 }}>{pinIcon}</span>
                     {branch.location}
-                  </div>
-                  
-                  <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                      <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'rgba(42, 170, 222, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                      </div>
-                      <span style={{ fontWeight: 500, color: 'var(--foreground)' }}>{branch.email}</span>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                      <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'rgba(42, 170, 222, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                      </div>
-                      <span style={{ fontWeight: 600, color: 'var(--foreground)' }}>{branch.phone}</span>
-                    </div>
-                  </div>
+                  </span>
+
+                  <a
+                    href={`mailto:${branch.email}`}
+                    className="footer-link"
+                    style={{ fontSize: '0.93rem', fontWeight: 500 }}
+                  >
+                    {branch.email}
+                  </a>
+
+                  <a
+                    href={`tel:${branch.phone.replace(/\s/g, '')}`}
+                    style={{ fontWeight: 700, fontSize: '1rem' }}
+                  >
+                    {branch.phone}
+                  </a>
                 </div>
               </ScrollReveal>
             ))}
@@ -101,15 +184,41 @@ export default function Branches() {
         </div>
       </section>
 
-      {/* Why Visit Section */}
-      <section style={{ padding: 'clamp(3rem, 6vw, 6rem) 1rem', backgroundColor: 'var(--secondary)', borderTop: '1px solid var(--glass-border)' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-          <ScrollReveal>
-            <h2 className="h2" style={{ marginBottom: '1.5rem' }}>Why Visit a Mariot Branch?</h2>
-            <p className="p-large" style={{ color: 'rgba(0,0,0,0.7)', lineHeight: 1.8 }}>
-              Our branches provide product demonstrations, project consultation, equipment recommendations, installation planning, and technical support. Whether you are upgrading an existing kitchen or launching a new hospitality project, our experts are available to help you select the ideal commercial kitchen solutions for your business.
-            </p>
-          </ScrollReveal>
+      {/* ── WHY VISIT ────────────────────────────────────── */}
+      <section style={{ backgroundColor: 'var(--paper-deep)', borderTop: '1px solid var(--rule)' }}>
+        <div style={{ ...container, padding: 'clamp(4rem, 8vw, 7rem) var(--gutter)' }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 380px), 1fr))',
+              gap: 'clamp(2.5rem, 5vw, 4.5rem)',
+              alignItems: 'center',
+            }}
+          >
+            <ScrollReveal>
+              <div>
+                <span className="eyebrow eyebrow-blue">Worth the trip</span>
+                <h2 className="h2" style={{ margin: '1.25rem 0 1.5rem' }}>
+                  Why visit a branch?
+                </h2>
+                <p className="p-large">
+                  Our branches offer product demonstrations, project consultation, equipment
+                  recommendations, installation planning and technical support. Whether you are
+                  upgrading an existing kitchen or launching a new hospitality project, our
+                  specialists will help you choose the right solution.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={120}>
+              <Figure
+                photo="bakeryDisplay"
+                ratio="3 / 2"
+                sizes="(max-width: 800px) 100vw, 45vw"
+                className="figure-zoom"
+              />
+            </ScrollReveal>
+          </div>
         </div>
       </section>
     </main>

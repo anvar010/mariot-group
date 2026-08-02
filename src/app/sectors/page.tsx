@@ -1,75 +1,181 @@
 import ScrollReveal from '@/components/ScrollReveal';
+import PageHero from '@/components/PageHero';
+import Figure from '@/components/Figure';
+import { SECTORS } from '@/lib/sectors';
 import Link from 'next/link';
 
+export const metadata = {
+  title: 'Sectors We Serve — Mariot Kitchen Equipment',
+  description:
+    'Commercial kitchen equipment and fabrication for restaurants, hotels, resorts, hospitals, bakeries, laundries, catering and central kitchens across the UAE and GCC.',
+};
+
+const container: React.CSSProperties = {
+  maxWidth: '1320px',
+  margin: '0 auto',
+  padding: '0 var(--gutter)',
+};
+
 export default function Sectors() {
-  const sectors = [
-    { name: 'Restaurants', desc: 'Full show kitchens, prep lines and stainless fabrication.' },
-    { name: 'Cafés', desc: 'Espresso platforms, pastry displays and compact prep areas.' },
-    { name: 'Hotels', desc: 'Main production, banquet, room service and outlet kitchens.' },
-    { name: 'Resorts', desc: 'Multi-outlet kitchens, pool bars and central production.' },
-    { name: 'Villas & Palaces', desc: 'Luxury private kitchens for villas, palaces and royal residences.' },
-    { name: 'Hospitals', desc: 'HACCP-compliant patient meal production with diet-line separation.' },
-    { name: 'Bakeries', desc: 'Deck ovens, dough mixers, proofers and cooling racks.' },
-    { name: 'Laundries', desc: 'Washers, tumble dryers, flatwork ironers and folding lines.' },
-    { name: 'Catering', desc: 'Central production kitchens with blast chillers and packaging.' },
-    { name: 'Supermarkets', desc: 'Refrigerated display cases, walk-in cold rooms, meat prep.' },
-    { name: 'Cloud Kitchens', desc: 'Standardized pods, shared cold storage and delivery staging.' },
-    { name: 'Central Kitchens', desc: 'High-volume production, cook-chill and distribution logistics.' }
-  ];
-
   return (
-    <main style={{ paddingTop: '80px', backgroundColor: 'var(--background)' }}>
-      {/* Header Section */}
-      <section style={{ backgroundColor: 'var(--secondary)', padding: 'clamp(3rem, 6vw, 6rem) 1rem', borderBottom: '1px solid var(--glass-border)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
-          <ScrollReveal>
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
-              <span style={{ fontSize: '0.875rem', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--primary)' }}>Sectors We Serve</span>
-            </div>
-            <h1 className="h1" style={{ marginBottom: '1.5rem', color: 'var(--foreground)' }}>
-              Sector Expertise Across <br/>
-              <span style={{ color: 'var(--primary)' }}>Every Project Type</span>
-            </h1>
-            <p className="p-large" style={{ maxWidth: '800px', margin: '0 auto' }}>
-              Each sector has its own dedicated page with our past work and tailored solutions.
-            </p>
-          </ScrollReveal>
-        </div>
-      </section>
+    <main>
+      <PageHero
+        eyebrow="Sectors We Serve"
+        title={
+          <>
+            Sector expertise across{' '}
+            <span style={{ color: 'var(--primary)' }}>every project type</span>
+          </>
+        }
+        intro="Every segment cooks differently. We plan, equip and fabricate around the workflow each one actually runs — not a generic kitchen template."
+        photo="restaurantSteel"
+        stats={[
+          { value: '12', label: 'Segments Served' },
+          { value: '500+', label: 'Projects Delivered' },
+          { value: '40+', label: 'Global Brands' },
+        ]}
+      />
 
-      {/* Grid Section */}
-      <section style={{ padding: 'clamp(4rem, 8vw, 8rem) 1rem' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 350px), 1fr))', gap: '2rem' }}>
-            {sectors.map((sector, index) => (
-              <ScrollReveal key={sector.name} delay={(index % 3) * 100}>
-                <Link href={`/sectors/${sector.name.toLowerCase().replace(/ /g, '-').replace(/&/g, 'and')}`} style={{ textDecoration: 'none' }}>
-                  <div 
-                    className="glass-panel hover-lift" 
-                    style={{ 
-                      padding: '3rem 2.5rem', 
-                      backgroundColor: 'var(--secondary)', 
-                      height: '100%', 
-                      display: 'flex', 
-                      flexDirection: 'column'
-                    }}
-                  >
-                    <h2 style={{ fontSize: 'clamp(1.25rem, 3vw, 1.5rem)', fontWeight: 600, marginBottom: '1rem', color: 'var(--foreground)' }}>
+      <section style={{ backgroundColor: 'var(--paper)' }}>
+        <div style={{ ...container, padding: 'clamp(4rem, 8vw, 7rem) var(--gutter)' }}>
+          <ScrollReveal>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'flex-end',
+                flexWrap: 'wrap',
+                gap: '1.5rem',
+                marginBottom: '3rem',
+              }}
+            >
+              <div>
+                <span className="eyebrow">Browse by segment</span>
+                <h2 className="h2" style={{ marginTop: '1.25rem' }}>
+                  Twelve sectors,
+                  <br />
+                  one partner
+                </h2>
+              </div>
+              <p className="p-large" style={{ maxWidth: '380px' }}>
+                Each sector has its own dedicated page with past work and tailored equipment
+                packages.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 320px), 1fr))',
+              gap: '1px',
+              backgroundColor: 'var(--rule)',
+              border: '1px solid var(--rule)',
+            }}
+          >
+            {SECTORS.map((sector, i) => (
+              <ScrollReveal key={sector.slug} delay={(i % 3) * 100}>
+                <Link
+                  href={`/sectors/${sector.slug}`}
+                  className="media-tile"
+                  style={{ height: '100%', minHeight: '340px', border: 'none' }}
+                >
+                  <Figure
+                    photo={sector.photo}
+                    scrim="full"
+                    sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                    className="figure-zoom"
+                    style={{ position: 'absolute', inset: 0, border: 'none' }}
+                  />
+                  <div className="tile-body" style={{ minHeight: '340px' }}>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '0.9rem',
+                        color: i % 3 === 1 ? 'var(--accent)' : 'var(--primary)',
+                        marginBottom: 'auto',
+                      }}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <h3 style={{ fontSize: 'clamp(1.35rem, 2.4vw, 1.75rem)', marginBottom: '0.6rem' }}>
                       {sector.name}
-                    </h2>
-                    <p style={{ fontSize: '1.125rem', color: 'rgba(0,0,0,0.7)', lineHeight: 1.6, flexGrow: 1, marginBottom: '2rem' }}>
+                    </h3>
+                    <p
+                      style={{
+                        fontSize: '0.92rem',
+                        lineHeight: 1.55,
+                        color: 'rgba(255,255,255,0.78)',
+                        marginBottom: '1rem',
+                      }}
+                    >
                       {sector.desc}
                     </p>
-                    
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary)', fontWeight: 600, fontSize: '0.875rem' }}>
-                      View sector
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
-                    </div>
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        fontSize: '0.72rem',
+                        fontWeight: 700,
+                        letterSpacing: '0.14em',
+                        textTransform: 'uppercase',
+                        color: '#fff',
+                      }}
+                    >
+                      View sector <span className="cat-arrow">→</span>
+                    </span>
                   </div>
                 </Link>
               </ScrollReveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── CTA ──────────────────────────────────────────── */}
+      <section style={{ backgroundColor: 'var(--ink)', color: 'var(--paper)' }}>
+        <div style={{ ...container, padding: 'clamp(3.5rem, 7vw, 6rem) var(--gutter)' }}>
+          <ScrollReveal>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '2rem',
+              }}
+            >
+              <div style={{ maxWidth: '620px' }}>
+                <span className="eyebrow on-dark">Not sure where you fit?</span>
+                <h2 className="h2" style={{ marginTop: '1.25rem', color: 'var(--paper)' }}>
+                  Tell us what you&rsquo;re building
+                </h2>
+                <p className="p-large" style={{ color: 'rgba(255,255,255,0.65)', marginTop: '1rem' }}>
+                  Send us your concept and our engineers will scope the equipment list, the
+                  fabrication and the budget.
+                </p>
+              </div>
+              <Link href="/contact" className="premium-btn blue-btn">
+                Get a Free Quote
+                <span className="btn-circle">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </span>
+              </Link>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
     </main>

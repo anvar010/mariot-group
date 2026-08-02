@@ -1,111 +1,111 @@
 import ScrollReveal from '@/components/ScrollReveal';
+import PageHero from '@/components/PageHero';
+import ProjectGallery, { type GalleryItem } from '@/components/ProjectGallery';
 import Link from 'next/link';
 
+export const metadata = {
+  title: 'Projects — Mariot Kitchen Equipment',
+  description:
+    'Selected turn-key commercial kitchen deliveries across the UAE — hotels, resorts, restaurants, hospitals, bakeries and central kitchens.',
+};
+
+const container: React.CSSProperties = {
+  maxWidth: '1320px',
+  margin: '0 auto',
+  padding: '0 var(--gutter)',
+};
+
+const PROJECTS: GalleryItem[] = [
+  { name: 'Luxury Resort Main Kitchen', category: 'Resorts', location: 'Ras Al Khaimah', photo: 'resort' },
+  { name: 'Fine-Dining Open Kitchen', category: 'Restaurants', location: 'Downtown Dubai', photo: 'chefPlating' },
+  { name: 'Downtown Artisan Café', category: 'Cafés', location: 'Dubai', photo: 'cafe' },
+  { name: 'General Hospital Diet Line', category: 'Hospitals', location: 'Abu Dhabi', photo: 'hospital' },
+  { name: 'Royal Palace Banquet Prep', category: 'Villas & Palaces', location: 'Al Ain', photo: 'villaKitchen' },
+  { name: 'Premium Cloud Kitchen Pods', category: 'Cloud Kitchens', location: 'Dubai Investment Park', photo: 'chefFlame' },
+  { name: 'Boutique Hotel Banquet Kitchen', category: 'Hotels', location: 'Sharjah', photo: 'hotel' },
+  { name: 'Central Bakery Production Line', category: 'Bakeries', location: 'Sharjah Industrial', photo: 'bakeryDisplay' },
+  { name: 'Mega Supermarket Display', category: 'Supermarkets', location: 'Abu Dhabi', photo: 'supermarket' },
+];
+
 export default function Projects() {
-  const categories = [
-    'All', 'Restaurants', 'Cafés', 'Hotels', 'Resorts', 'Villas & Palaces', 
-    'Hospitals', 'Bakeries', 'Laundries', 'Catering', 'Supermarkets', 
-    'Cloud Kitchens', 'Central Kitchens'
-  ];
-
-  // Placeholder projects
-  const projects = [
-    { name: 'Luxury Resort Main Kitchen', category: 'Resorts' },
-    { name: 'Downtown Artisan Café', category: 'Cafés' },
-    { name: 'General Hospital Diet Line', category: 'Hospitals' },
-    { name: 'Royal Palace Banquet Prep', category: 'Villas & Palaces' },
-    { name: 'Premium Cloud Kitchen Pods', category: 'Cloud Kitchens' },
-    { name: 'Mega Supermarket Display', category: 'Supermarkets' },
-  ];
-
   return (
-    <main style={{ paddingTop: '80px', backgroundColor: 'var(--background)', minHeight: '100vh' }}>
-      {/* Header Section */}
-      <section style={{ backgroundColor: 'var(--secondary)', padding: 'clamp(3rem, 6vw, 6rem) 1rem', borderBottom: '1px solid var(--glass-border)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
+    <main>
+      <PageHero
+        eyebrow="Our Work"
+        title={
+          <>
+            Selected turn-key deliveries{' '}
+            <span style={{ color: 'var(--primary)' }}>across the UAE</span>
+          </>
+        }
+        intro="From a single café counter to a hotel production kitchen running three shifts — here is a cross-section of what we have designed, built and commissioned."
+        photo="restaurantWarm"
+        stats={[
+          { value: '500+', label: 'Projects Delivered' },
+          { value: '7', label: 'Emirates Served' },
+          { value: '20+', label: 'Years Operating' },
+        ]}
+      />
+
+      <section style={{ backgroundColor: 'var(--paper)' }}>
+        <div style={{ ...container, padding: 'clamp(4rem, 8vw, 7rem) var(--gutter)' }}>
           <ScrollReveal>
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
-              <span style={{ fontSize: '0.875rem', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--primary)' }}>Our Projects</span>
+            <div style={{ marginBottom: '2.5rem', maxWidth: '640px' }}>
+              <span className="eyebrow eyebrow-blue">Project index</span>
+              <h2 className="h2" style={{ marginTop: '1.25rem' }}>
+                Filter by sector
+              </h2>
             </div>
-            <h1 className="h1" style={{ marginBottom: '1.5rem', color: 'var(--foreground)' }}>
-              Selected turn-key deliveries <br/>
-              <span style={{ color: 'var(--primary)' }}>across the UAE.</span>
-            </h1>
           </ScrollReveal>
-        </div>
-      </section>
 
-      {/* Filter Bar */}
-      <section style={{ padding: '2rem', borderBottom: '1px solid var(--glass-border)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <ScrollReveal delay={100}>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center' }}>
-              {categories.map((cat, index) => (
-                <button 
-                  key={cat}
-                  style={{ 
-                    padding: '0.5rem 1.25rem', 
-                    backgroundColor: index === 0 ? 'var(--foreground)' : 'transparent', 
-                    color: index === 0 ? 'var(--background)' : 'var(--foreground)',
-                    border: index === 0 ? '1px solid var(--foreground)' : '1px solid var(--glass-border)',
-                    borderRadius: '100px',
-                    fontSize: '0.875rem',
-                    fontWeight: 500,
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease'
-                  }}
-                  className={index !== 0 ? "hover-lift" : ""}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
+            <ProjectGallery items={PROJECTS} />
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Projects Grid */}
-      <section style={{ padding: 'clamp(3rem, 6vw, 6rem) 1rem' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 350px), 1fr))', gap: '2rem' }}>
-            {projects.map((project, index) => (
-              <ScrollReveal key={project.name} delay={(index % 3) * 100}>
-                <div 
-                  className="glass-panel hover-lift" 
-                  style={{ 
-                    backgroundColor: 'var(--secondary)', 
-                    height: '100%', 
-                    display: 'flex', 
-                    flexDirection: 'column',
-                    overflow: 'hidden'
-                  }}
-                >
-                  {/* Fake Image Placeholder */}
-                  <div style={{ width: '100%', height: '240px', backgroundColor: 'var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                  </div>
-                  
-                  <div style={{ padding: '2rem', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--primary)', marginBottom: '0.5rem' }}>
-                      {project.category}
-                    </span>
-                    <h3 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '2rem', color: 'var(--foreground)' }}>
-                      {project.name}
-                    </h3>
-                    
-                    <div style={{ marginTop: 'auto' }}>
-                      <Link href="#project" style={{ textDecoration: 'none' }}>
-                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary)', fontWeight: 600, fontSize: '0.875rem' }}>
-                          View project
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
-                        </div>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+      <section style={{ backgroundColor: 'var(--ink)', color: 'var(--paper)' }}>
+        <div style={{ ...container, padding: 'clamp(3.5rem, 7vw, 6rem) var(--gutter)' }}>
+          <ScrollReveal>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '2rem',
+              }}
+            >
+              <div style={{ maxWidth: '620px' }}>
+                <span className="eyebrow on-dark">Your project next</span>
+                <h2 className="h2" style={{ marginTop: '1.25rem', color: 'var(--paper)' }}>
+                  Let&rsquo;s scope your kitchen
+                </h2>
+                <p className="p-large" style={{ color: 'rgba(255,255,255,0.65)', marginTop: '1rem' }}>
+                  Share a layout or a concept and we will come back with an equipment schedule and
+                  a budget range.
+                </p>
+              </div>
+              <Link href="/contact" className="premium-btn red-btn">
+                Start a Project
+                <span className="btn-circle">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </span>
+              </Link>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
     </main>

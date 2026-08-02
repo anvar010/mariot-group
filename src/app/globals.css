@@ -1,14 +1,37 @@
 :root {
-  --background: #ffffff;
-  --foreground: #111111;
-  --primary: #2aaade;
+  /* Mariot logo palette on warm editorial paper.
+     Three tones do the structural work: `paper` is the page, `paper-deep` is a
+     recessed band, `surface` is anything that should read as lifted off the page. */
+  --paper: #f6f4f0;
+  --paper-deep: #ece7df;
+  --surface: #ffffff;
+  --ink: #16130e;
+  --ink-soft: rgba(22, 19, 14, 0.64);
+  --ink-faint: rgba(22, 19, 14, 0.42);
+  --primary: #2aa9de;
   /* Blue from logo */
-  --secondary: #f8f9fa;
-  --accent: #e9ecef;
-  --glass-bg: rgba(255, 255, 255, 0.8);
-  --glass-border: rgba(0, 0, 0, 0.08);
+  --primary-deep: #1b7fad;
+  --accent: #e02f2a;
+  /* Red from logo */
 
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --secondary: var(--paper-deep);
+  --glass-bg: rgba(246, 244, 240, 0.88);
+  --glass-border: rgba(22, 19, 14, 0.14);
+  --rule: rgba(22, 19, 14, 0.16);
+  --rule-strong: rgba(22, 19, 14, 0.28);
+  --rule-light: rgba(255, 255, 255, 0.18);
+
+  /* One easing and one duration keep motion feeling like a single system. */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur: 0.5s;
+
+  /* Side gutter: only needed while the viewport is narrower than the centered
+     1320px shell; on large desktops the natural margins do the work. */
+  --gutter: 1.5rem;
+
+  --font-sans: var(--font-body), 'Helvetica Neue', Arial, sans-serif;
 }
 
 * {
@@ -28,6 +51,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+::selection {
+  background: var(--primary);
+  color: #fff;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -35,32 +63,73 @@ a {
 
 /* Typography Classes */
 .h1 {
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.04em;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
 }
 
 .h2 {
-  font-size: clamp(1.75rem, 4vw, 2.75rem);
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.h3-display {
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .p-large {
-  font-size: clamp(1rem, 1.5vw, 1.125rem);
-  line-height: 1.6;
-  color: rgba(0, 0, 0, 0.7);
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  line-height: 1.65;
+  color: var(--ink-soft);
 }
 
 .p-regular {
   font-size: 1rem;
-  line-height: 1.5;
-  color: rgba(0, 0, 0, 0.6);
+  line-height: 1.6;
+  color: var(--ink-soft);
 }
 
-/* Hero specific text colors since it has a dark overlay over the video */
+/* Kicker label above headings: ▪ SECTION NAME */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.eyebrow.eyebrow-blue::before {
+  background: var(--primary);
+}
+
+.eyebrow.on-dark {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Hero specific text colors for pages with dark hero backdrops */
 .hero-text-white {
   color: #ffffff !important;
 }
@@ -71,51 +140,61 @@ a {
 }
 
 /* Premium UI Utilities */
+
+/* Panels are squared hairline frames, not floating glass — this is the shared
+   card surface across every page, so it has to match the homepage's rules. */
 .glass-panel {
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 0;
 }
 
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   padding: 1rem 2rem;
-  background-color: var(--primary);
-  color: #ffffff;
+  background-color: var(--ink);
+  color: var(--paper);
   font-weight: 600;
-  border-radius: 100px;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  border: 1px solid var(--ink);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
-  border: none;
 }
 
 .btn-primary:hover {
-  transform: scale(1.05);
-  background-color: #208bc7;
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  transform: translateY(-2px);
 }
 
 .btn-secondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   padding: 1rem 2rem;
   background-color: transparent;
-  color: var(--foreground);
-  font-weight: 500;
-  border-radius: 100px;
-  border: 1px solid var(--glass-border);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  border: 1px solid var(--rule);
   transition: background-color 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
 }
 
 .btn-secondary:hover {
-  background-color: rgba(0, 0, 0, 0.03);
-  border-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(22, 19, 14, 0.05);
+  border-color: var(--ink);
 }
 
 .btn-secondary-white {
@@ -125,16 +204,203 @@ a {
   padding: 1rem 2rem;
   background-color: transparent;
   color: #ffffff;
-  font-weight: 500;
-  border-radius: 100px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
   transition: background-color 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
 }
 
 .btn-secondary-white:hover {
   background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Arrow-in-circle button used across pages */
+.premium-btn {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 3px;
+  padding: 0.5rem 0.5rem 0.5rem 1.75rem;
+  font-weight: 600;
+  font-size: clamp(0.85rem, 3.5vw, 1rem);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1), background-color 0.3s ease;
+}
+
+.premium-btn.black-btn {
+  background-color: var(--ink);
+  color: var(--paper);
+}
+
+.premium-btn.blue-btn {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+.premium-btn.red-btn {
+  background-color: var(--accent);
+  color: #fff;
+}
+
+.premium-btn .btn-circle {
+  margin-left: 1.25rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.16);
+  transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.premium-btn:active {
+  transform: scale(0.98);
+}
+
+.premium-btn:hover .btn-circle {
+  transform: translateX(4px) scale(1.05);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FORM FIELDS
+   Squared to match the rest of the system. Selects drop the native
+   appearance and draw their own chevron, so a <select> and an <input>
+   are the same height and weight in every browser.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.form-input {
+  width: 100%;
+  min-height: 52px;
+  padding: 0.9rem 1.1rem;
+  border-radius: 0;
+  border: 1px solid var(--rule);
+  background-color: var(--surface);
+  color: var(--ink);
+  font-size: 0.97rem;
+  font-family: var(--font-sans);
+  line-height: 1.4;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.form-input::placeholder {
+  color: var(--ink-faint);
+}
+
+.form-input:hover:not(:disabled) {
+  border-color: var(--rule-strong);
+}
+
+.form-input:focus-visible,
+.form-input:focus {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.form-input:disabled {
+  background-color: var(--paper-deep);
+  color: var(--ink-faint);
+  cursor: not-allowed;
+}
+
+/* Selects: kill the platform chrome and supply our own mark. The extra
+   right padding reserves room for it so long option text never collides. */
+select.form-input {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 2.9rem;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' stroke='%2316130e' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.1rem center;
+  background-size: 12px 8px;
+}
+
+select.form-input:focus {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' stroke='%232aa9de' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+textarea.form-input {
+  min-height: 130px;
+  resize: vertical;
+}
+
+/* File pickers render as a bare OS button otherwise. */
+input[type='file'].form-input {
+  padding: 0.7rem 0.9rem;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+input[type='file'].form-input::file-selector-button {
+  margin-right: 0.9rem;
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background-color: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+input[type='file'].form-input::file-selector-button:hover {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* ═══ Segmented control (cost calculator equipment level) ═══ */
+.segmented {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 1px;
+  background-color: var(--rule);
+  border: 1px solid var(--rule);
+}
+
+.segmented button {
+  padding: 0.85rem 0.5rem;
+  border: none;
+  border-radius: 0;
+  background-color: var(--surface);
+  color: var(--ink-soft);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.segmented button:hover:not(.is-on) {
+  background-color: var(--paper-deep);
+  color: var(--ink);
+}
+
+.segmented button.is-on {
+  background-color: var(--ink);
+  color: var(--paper);
+}
+
+.segmented button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
 }
 
 /* Smooth Scroll Lenis Fix */
@@ -175,14 +441,211 @@ html.lenis {
   opacity: 0;
 }
 
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Slow drift so the logos are readable in passing rather than a blur.
+   Callers that want a different pace set animation-duration inline
+   (the hero client band does). */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 120s linear infinite;
+}
+
+.marquee-track.reverse {
+  animation: marquee-reverse 120s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
 .hover-lift {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
 
 .hover-lift:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(22, 19, 14, 0.08);
+}
+
+/* Editorial ruled cards (homepage) */
+.ruled-card {
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.ruled-card:hover {
+  background-color: #ffffff;
+  transform: translateY(-4px);
+}
+
+.editorial-row {
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
+}
+
+.editorial-row:hover {
+  background-color: rgba(42, 169, 222, 0.06);
+  padding-left: 1.75rem !important;
+}
+
+.cat-card .cat-arrow {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cat-card:hover .cat-arrow {
+  transform: translate(4px, -4px);
+}
+
+/* Logos run in their own brand colours — these are partner marks and the
+   colour is the recognisable part, so it is not ours to desaturate. */
+.brand-logo-tile {
+  opacity: 1;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.brand-logo-tile:hover {
+  transform: scale(1.06);
+  background-color: var(--paper);
+}
+
+/* Hero framed photo slideshow */
+.hero-slideshow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-slideshow>div {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.4s ease-in-out;
+  will-change: opacity, transform;
+}
+
+.hero-slideshow>div.active {
+  opacity: 1;
+  animation: kenburns 6.5s ease-out forwards;
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.07);
+  }
+}
+
+/* Slide indicator bars */
+.hero-dots {
+  position: absolute;
+  bottom: 0.9rem;
+  right: 0.9rem;
+  display: flex;
+  gap: 0.35rem;
+  z-index: 2;
+}
+
+.hero-dots button {
+  width: 22px;
+  height: 4px;
+  border: none;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.hero-dots button.on {
+  background: var(--accent);
+}
+
+/* Hero CTA row: natural widths on desktop, equal-size single line on mobile */
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+  .hero-cta {
+    flex-wrap: nowrap;
+  }
+
+  .hero-cta>a {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 54px;
+    justify-content: center;
+    padding: 0 0.75rem !important;
+    font-size: 0.8rem;
+  }
+
+  .hero-cta .premium-btn .btn-circle {
+    width: 28px;
+    height: 28px;
+    margin-left: 0.5rem;
+  }
+}
+
+/* Hero rotating word */
+@keyframes wordIn {
+  0% {
+    opacity: 0;
+    transform: translateY(110%) skewY(4deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) skewY(0);
+  }
+}
+
+.word-swap {
+  display: inline-block;
+  animation: wordIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Slow spinning badge in hero */
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin-slow {
+  animation: spinSlow 18s linear infinite;
 }
 
 /* Header Responsive Utils */
@@ -193,6 +656,10 @@ html.lenis {
 
   .mobile-toggle {
     display: block !important;
+  }
+
+  .topbar {
+    display: none !important;
   }
 }
 
@@ -213,7 +680,7 @@ html.lenis {
   left: 0;
   background-color: var(--background);
   border: 1px solid var(--glass-border);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 1rem;
   min-width: 220px;
   display: flex;
@@ -223,7 +690,7 @@ html.lenis {
   visibility: hidden;
   transform: translateY(10px);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px rgba(22, 19, 14, 0.08);
 }
 
 .nav-item-group:hover .nav-dropdown {
@@ -234,7 +701,7 @@ html.lenis {
 
 .nav-dropdown a {
   font-size: 0.875rem;
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--ink-soft);
   transition: color 0.2s ease;
   padding: 0.25rem 0;
 }
@@ -246,7 +713,7 @@ html.lenis {
 /* Footer Hover Utils */
 .footer-link {
   transition: color 0.2s ease;
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--ink-soft);
 }
 
 .footer-link:hover {
@@ -262,11 +729,512 @@ html.lenis {
   align-items: center;
   justify-content: center;
   font-size: 0.75rem;
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--ink-soft);
   transition: all 0.2s ease;
 }
 
 .social-icon:hover {
   border-color: var(--primary);
   color: var(--primary);
+}
+
+/* Sector category cards: hairline grid cells that invert to ink on hover */
+/* Photo fills the tile; the box, padding and flex positions are unchanged —
+   the image sits behind as an absolute layer, so the number/icon/title keep
+   the exact positions they had on the plain surface. */
+.sector-card {
+  background-color: var(--ink);
+  padding: clamp(1.25rem, 2.2vw, 1.9rem);
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  transition: background-color var(--dur) var(--ease);
+}
+
+/* Everything except the photo layer rides above the scrim. */
+.sector-card>*:not(.figure) {
+  position: relative;
+  z-index: 2;
+}
+
+.sector-card .sc-num,
+.sector-card .sc-icon,
+.sector-card .sc-arrow,
+.sector-card .sc-title {
+  transition: color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+/* The scrim is weighted to the bottom, so the number and arrow up top can land
+   on a bright patch (white kitchens, produce shelves). Their own shadow keeps
+   them legible whatever the photo does. */
+.sector-card .sc-num {
+  text-shadow: 0 1px 6px rgba(22, 19, 14, 0.85);
+}
+
+.sector-card .sc-icon {
+  color: rgba(255, 255, 255, 0.85);
+  filter: drop-shadow(0 1px 5px rgba(22, 19, 14, 0.8));
+}
+
+.sector-card .sc-title {
+  color: #fff;
+  text-shadow: 0 1px 10px rgba(22, 19, 14, 0.55);
+}
+
+.sector-card .sc-arrow {
+  color: #fff;
+  filter: drop-shadow(0 1px 5px rgba(22, 19, 14, 0.8));
+}
+
+.sector-card:hover .sc-icon {
+  color: var(--accent);
+  transform: scale(1.12);
+}
+
+.sector-card:hover .sc-arrow {
+  color: #fff;
+  transform: translate(4px, -4px);
+}
+
+/* Footer social buttons (dark footer) */
+.footer-social {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--rule-light);
+  border-radius: 3px;
+  color: rgba(255, 255, 255, 0.75);
+  transition: all var(--dur) var(--ease);
+}
+
+.footer-social:hover {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PHOTOGRAPHY
+   One frame treatment for every photo on the site: a hairline rule, the
+   image's own dominant colour underneath so nothing flashes bare paper,
+   and a slow scale on hover. Consistency here is what reads as "clean".
+   ═══════════════════════════════════════════════════════════════════ */
+
+.figure {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--ink);
+  border: 1px solid var(--rule);
+  isolation: isolate;
+}
+
+.figure img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.001);
+  transition: transform 1.2s var(--ease);
+}
+
+/* Scale on hover only when the frame is inside something interactive. */
+a:hover .figure img,
+button:hover .figure img,
+.figure-zoom:hover img {
+  transform: scale(1.06);
+}
+
+/* Scrims keep white type legible over unpredictable photography. */
+.figure-scrim::after,
+.figure-scrim-soft::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Weighted toward the lower half, where captions sit — bright photos (produce,
+   buffets, white kitchens) otherwise wash out the text over them. */
+.figure-scrim::after {
+  background: linear-gradient(180deg,
+      rgba(22, 19, 14, 0.12) 0%,
+      rgba(22, 19, 14, 0.42) 38%,
+      rgba(22, 19, 14, 0.76) 68%,
+      rgba(22, 19, 14, 0.93) 100%);
+}
+
+.figure-scrim-soft::after {
+  background: linear-gradient(180deg,
+      rgba(22, 19, 14, 0) 35%,
+      rgba(22, 19, 14, 0.6) 100%);
+}
+
+/* Caption block that sits over the bottom of a scrimmed frame. */
+.figure-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  color: #fff;
+}
+
+.figure-index {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  padding: 0.5rem 0.85rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+}
+
+/* Small uppercase tag pinned to the top-left of a frame. */
+.figure-tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  padding: 0.45rem 0.8rem;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.figure-tag.on-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.figure-tag.on-accent {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ═══ Media tile: photo card with a title locked to the bottom ═══ */
+.media-tile {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background-color: var(--ink);
+  border: 1px solid var(--rule);
+}
+
+.media-tile h3 {
+  font-family: var(--font-display), Impact, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+}
+
+.media-tile .tile-body {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  color: #fff;
+}
+
+/* ═══ Page hero: shared masthead for every interior page ═══ */
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--ink);
+  color: #fff;
+}
+
+.page-hero .page-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.page-hero .page-hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page-hero .page-hero-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(100deg,
+      rgba(22, 19, 14, 0.94) 0%,
+      rgba(22, 19, 14, 0.82) 45%,
+      rgba(22, 19, 14, 0.5) 75%,
+      rgba(22, 19, 14, 0.35) 100%);
+}
+
+.page-hero .page-hero-inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* ═══ Filter chips (projects / fabrication) ═══ */
+.filter-chip {
+  padding: 0.55rem 1.1rem;
+  background-color: transparent;
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.filter-chip:hover {
+  border-color: var(--ink);
+  background-color: rgba(22, 19, 14, 0.04);
+}
+
+.filter-chip.is-active {
+  background-color: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .figure img,
+  .hero-slideshow>div,
+  .marquee-track {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ── Mobile-first responsive fixes ─────────────────────── */
+
+/* Desktop: the 1320px shell centers itself with natural margins — no gutter. */
+@media (min-width: 1380px) {
+  :root {
+    --gutter: 0px;
+  }
+}
+
+.quote-btn {
+  padding: 0.65rem 1.4rem;
+  font-size: 0.78rem;
+}
+
+@media (max-width: 768px) {
+  .quote-btn {
+    padding: 0.55rem 0.8rem;
+    font-size: 0.68rem;
+    white-space: nowrap;
+  }
+
+  /* Four figures across one short row — as a 2x2 block these cost twice the
+     height for the same four numbers. */
+  .grid-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+
+  .grid-stats>div {
+    padding: 0.7rem 0.4rem !important;
+  }
+
+  .grid-stats>div>div {
+    font-size: 1.45rem !important;
+  }
+
+  .grid-stats p {
+    font-size: 0.56rem !important;
+    letter-spacing: 0.03em !important;
+    margin-top: 0.25rem !important;
+    line-height: 1.25;
+  }
+
+  .intro-split {
+    gap: 0.9rem !important;
+  }
+
+  /* The intro is the shortest content on the page; it should not read as one
+     of the taller sections on a phone. */
+  .intro-split h2 {
+    font-size: 1.65rem !important;
+    margin: 0.45rem 0 !important;
+  }
+
+  .intro-split p {
+    line-height: 1.5 !important;
+  }
+
+  /* Category index: always two columns, compact cells */
+  .grid-cats {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .sector-card {
+    min-height: 128px;
+    padding: 1rem;
+  }
+
+  .sector-card .sc-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Cards sized by their content on small screens — no empty air */
+  .hub-card,
+  .pkg-card {
+    min-height: 0 !important;
+  }
+
+  /* GCC market tiles: two columns */
+  .grid-gcc {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Two-column editorial split: the text column stays narrower than the panel
+   beside it, so neither side leaves a tall block of dead space. */
+.split-cols {
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+}
+
+/* Same split, weighted the other way when the copy leads. */
+.split-cols.text-wide {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+}
+
+@media (max-width: 980px) {
+
+  .split-cols,
+  .split-cols.text-wide {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   MOBILE SCROLL BUDGET
+   Card sets that sit side by side on desktop become a full-height
+   vertical stack on a phone — five of them alone ran to seven screens.
+   Below the breakpoint they turn into edge-to-edge swipe rails instead,
+   so each set costs one card of height rather than N. Desktop keeps the
+   grid exactly as authored; every rule here is inside the media query.
+   ═══════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .mob-swipe {
+    grid-auto-flow: column !important;
+    grid-auto-columns: 80% !important;
+    grid-template-columns: none !important;
+    gap: 0.7rem !important;
+    border: none !important;
+    background: transparent !important;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Bleed past the gutter so the next card peeks in at the edge. */
+    margin-left: calc(var(--gutter) * -1);
+    margin-right: calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) 0.25rem;
+  }
+
+  .mob-swipe::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mob-swipe>* {
+    scroll-snap-align: start;
+    border: 1px solid var(--rule);
+  }
+
+  .mob-swipe.on-dark>* {
+    border-color: var(--rule-light);
+  }
+
+  /* Rows carrying a title plus one line of copy — trim the padding, not the copy. */
+  .editorial-row {
+    padding: 0.7rem 0.85rem !important;
+  }
+
+  .editorial-row h3 {
+    font-size: 1.05rem !important;
+  }
+
+  .editorial-row p {
+    font-size: 0.85rem !important;
+    line-height: 1.45 !important;
+  }
+
+  /* Six flag tiles: three across is two rows instead of three. */
+  .grid-gcc {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  .grid-gcc>div {
+    padding: 1rem 0.5rem !important;
+  }
+
+  /* Gaps authored for a wide canvas read as dead space on a phone. */
+  .mb-tight {
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Three figures side by side instead of three full-width rows. */
+  .stat-row {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.75rem !important;
+  }
+
+  .stat-row>div {
+    display: block !important;
+  }
+
+  .stat-row span:first-child {
+    font-size: 1.6rem !important;
+  }
+
+  .stat-row span:last-child {
+    display: block;
+    font-size: 0.68rem !important;
+    line-height: 1.3;
+    margin-top: 0.2rem;
+  }
+
+  /* Footer link lists pair up rather than running one under the other.
+     minmax(0,…) rather than 1fr, or the brand column's min-content wins
+     and the two link lists come out lopsided. */
+  .footer-cols {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1.75rem !important;
+  }
+
+  .footer-cols>*:first-child,
+  .footer-cols>*:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .footer-cols ul {
+    gap: 0.55rem !important;
+  }
+
+  .footer-cols h4 {
+    margin-bottom: 0.9rem !important;
+  }
 }
