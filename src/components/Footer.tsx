@@ -93,7 +93,7 @@ export default function Footer() {
                 padding: '1rem 1.25rem',
                 backgroundColor: 'rgba(255,255,255,0.06)',
                 border: '1px solid var(--rule-light)',
-                borderRadius: '3px',
+                borderRadius: '999px',
                 color: '#fff',
                 fontSize: '0.95rem',
                 fontFamily: 'inherit',
@@ -114,7 +114,7 @@ export default function Footer() {
 
           {/* Brand */}
           <div>
-            <Link href="/" style={{ display: 'inline-block', backgroundColor: '#fff', padding: '0.6rem 0.9rem', borderRadius: '3px', marginBottom: '1.5rem' }}>
+            <Link href="/" style={{ display: 'inline-block', backgroundColor: '#fff', padding: '0.6rem 0.9rem', borderRadius: '999px', marginBottom: '1.5rem' }}>
               <Image
                 src="/logo.png"
                 alt="Mariot Kitchen Equipment"

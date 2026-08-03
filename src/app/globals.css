@@ -1,27 +1,35 @@
 :root {
-  /* Mariot logo palette on warm editorial paper.
-     Three tones do the structural work: `paper` is the page, `paper-deep` is a
-     recessed band, `surface` is anything that should read as lifted off the page. */
-  --paper: #f6f4f0;
-  --paper-deep: #ece7df;
+  /* Mariot logo palette on a cool slate foundation. Trust-and-authority
+     corporate system: `paper` is the app background (never pure white),
+     `surface` is the white card that pops off it, `ink` is a deep blue-black
+     rather than a warm brown-black, and the brand blue carries the accents. */
+  --paper: #f4f7f9;
+  --paper-deep: #e8eef2;
   --surface: #ffffff;
-  --ink: #16130e;
-  --ink-soft: rgba(22, 19, 14, 0.64);
-  --ink-faint: rgba(22, 19, 14, 0.42);
+  --ink: #0f1b26;
+  --ink-soft: rgba(15, 27, 38, 0.66);
+  --ink-faint: rgba(15, 27, 38, 0.42);
   --primary: #2aa9de;
   /* Blue from logo */
-  --primary-deep: #1b7fad;
+  --primary-deep: #14719e;
   --accent: #e02f2a;
   /* Red from logo */
 
   --background: var(--paper);
   --foreground: var(--ink);
   --secondary: var(--paper-deep);
-  --glass-bg: rgba(246, 244, 240, 0.88);
-  --glass-border: rgba(22, 19, 14, 0.14);
-  --rule: rgba(22, 19, 14, 0.16);
-  --rule-strong: rgba(22, 19, 14, 0.28);
-  --rule-light: rgba(255, 255, 255, 0.18);
+  --glass-bg: rgba(255, 255, 255, 0.82);
+  --glass-border: rgba(15, 27, 38, 0.1);
+  --rule: rgba(15, 27, 38, 0.1);
+  --rule-strong: rgba(15, 27, 38, 0.22);
+  --rule-light: rgba(255, 255, 255, 0.16);
+
+  /* Rounded-surface system: one radius family and two soft blue-tinted
+     shadows do all the card work; hairlines are demoted to a supporting role. */
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow-1: 0 1px 2px rgba(15, 27, 38, 0.05), 0 4px 16px rgba(15, 27, 38, 0.06);
+  --shadow-2: 0 2px 4px rgba(15, 27, 38, 0.06), 0 16px 40px rgba(15, 27, 38, 0.12);
 
   /* One easing and one duration keep motion feeling like a single system. */
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -104,24 +112,33 @@ a {
   color: var(--ink-soft);
 }
 
-/* Kicker label above headings: ▪ SECTION NAME */
+/* Kicker chip above headings: ● Section name */
 .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
+  padding: 0.4rem 0.95rem;
+  border-radius: 999px;
+  background: rgba(224, 47, 42, 0.08);
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: #b52420;
 }
 
 .eyebrow::before {
   content: '';
-  width: 9px;
-  height: 9px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
   background: var(--accent);
   flex-shrink: 0;
+}
+
+.eyebrow.eyebrow-blue {
+  background: rgba(42, 169, 222, 0.12);
+  color: var(--primary-deep);
 }
 
 .eyebrow.eyebrow-blue::before {
@@ -129,7 +146,8 @@ a {
 }
 
 .eyebrow.on-dark {
-  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 /* Hero specific text colors for pages with dark hero backdrops */
@@ -144,12 +162,12 @@ a {
 
 /* Premium UI Utilities */
 
-/* Panels are squared hairline frames, not floating glass — this is the shared
-   card surface across every page, so it has to match the homepage's rules. */
+/* Shared card surface across every page: white, rounded, softly lifted. */
 .glass-panel {
   background: var(--surface);
   border: 1px solid var(--rule);
-  border-radius: 0;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
 }
 
 .btn-primary {
@@ -157,23 +175,23 @@ a {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 1rem 2rem;
-  background-color: var(--ink);
-  color: var(--paper);
+  padding: 0.9rem 1.9rem;
+  background-color: var(--primary);
+  color: #fff;
   font-weight: 600;
-  font-size: 0.9rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  border-radius: 3px;
-  border: 1px solid var(--ink);
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  font-size: 0.92rem;
+  letter-spacing: 0.005em;
+  border-radius: 999px;
+  border: 1px solid var(--primary);
+  box-shadow: 0 6px 18px rgba(42, 169, 222, 0.32);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
 }
 
 .btn-primary:hover {
-  background-color: var(--primary);
-  border-color: var(--primary);
-  color: #fff;
+  background-color: var(--primary-deep);
+  border-color: var(--primary-deep);
+  box-shadow: 0 8px 22px rgba(20, 113, 158, 0.36);
   transform: translateY(-2px);
 }
 
@@ -182,36 +200,35 @@ a {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 1rem 2rem;
-  background-color: transparent;
+  padding: 0.9rem 1.9rem;
+  background-color: var(--surface);
   color: var(--ink);
   font-weight: 600;
-  font-size: 0.9rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  border-radius: 3px;
-  border: 1px solid var(--rule);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  font-size: 0.92rem;
+  letter-spacing: 0.005em;
+  border-radius: 999px;
+  border: 1px solid var(--rule-strong);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
   cursor: pointer;
 }
 
 .btn-secondary:hover {
-  background-color: rgba(22, 19, 14, 0.05);
-  border-color: var(--ink);
+  border-color: var(--primary);
+  color: var(--primary-deep);
+  background-color: rgba(42, 169, 222, 0.06);
 }
 
 .btn-secondary-white {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem 2rem;
-  background-color: transparent;
+  padding: 0.9rem 1.9rem;
+  background-color: rgba(255, 255, 255, 0.06);
   color: #ffffff;
   font-weight: 600;
-  font-size: 0.9rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  border-radius: 3px;
+  font-size: 0.92rem;
+  letter-spacing: 0.005em;
+  border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.35);
   transition: background-color 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
@@ -226,16 +243,20 @@ a {
 .premium-btn {
   display: inline-flex;
   align-items: center;
-  border-radius: 3px;
-  padding: 0.5rem 0.5rem 0.5rem 1.75rem;
+  border-radius: 999px;
+  padding: 0.5rem 0.5rem 0.5rem 1.6rem;
   font-weight: 600;
-  font-size: clamp(0.85rem, 3.5vw, 1rem);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+  letter-spacing: 0.005em;
   white-space: nowrap;
   border: none;
   cursor: pointer;
-  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1), background-color 0.3s ease;
+  box-shadow: var(--shadow-1);
+  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1), background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.premium-btn:hover {
+  box-shadow: var(--shadow-2);
 }
 
 .premium-btn.black-btn {
@@ -283,8 +304,8 @@ a {
 .form-input {
   width: 100%;
   min-height: 52px;
-  padding: 0.9rem 1.1rem;
-  border-radius: 0;
+  padding: 0.9rem 1.2rem;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--rule);
   background-color: var(--surface);
   color: var(--ink);
@@ -322,7 +343,7 @@ select.form-input {
   -webkit-appearance: none;
   padding-right: 2.9rem;
   cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' stroke='%2316130e' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' stroke='%230f1b26' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1.1rem center;
   background-size: 12px 8px;
@@ -349,7 +370,7 @@ input[type='file'].form-input::file-selector-button {
   margin-right: 0.9rem;
   padding: 0.55rem 1rem;
   border: 1px solid var(--ink);
-  border-radius: 0;
+  border-radius: 999px;
   background-color: var(--ink);
   color: var(--paper);
   font-family: var(--font-sans);
@@ -374,6 +395,8 @@ input[type='file'].form-input::file-selector-button:hover {
   gap: 1px;
   background-color: var(--rule);
   border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
 }
 
 .segmented button {
@@ -397,8 +420,8 @@ input[type='file'].form-input::file-selector-button:hover {
 }
 
 .segmented button.is-on {
-  background-color: var(--ink);
-  color: var(--paper);
+  background-color: var(--primary);
+  color: #fff;
 }
 
 .segmented button:focus-visible {
@@ -488,7 +511,7 @@ html.lenis {
 
 .hover-lift:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(22, 19, 14, 0.08);
+  box-shadow: 0 20px 40px rgba(15, 27, 38, 0.08);
 }
 
 /* Editorial ruled cards (homepage) */
@@ -693,7 +716,7 @@ html.lenis {
   visibility: hidden;
   transform: translateY(10px);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 10px 30px rgba(22, 19, 14, 0.08);
+  box-shadow: 0 10px 30px rgba(15, 27, 38, 0.08);
 }
 
 .nav-item-group:hover .nav-dropdown {
@@ -741,6 +764,104 @@ html.lenis {
   color: var(--primary);
 }
 
+/* Rounded shells for the truly gapless hairline grids (stats, flags, brand
+   logos): the cells keep their 1px separators, the container rounds and lifts. */
+.grid-gcc,
+.grid-stats,
+.brand-grid {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+}
+
+/* Card rails and the category mosaic run as separated floating cards instead —
+   a shell shadow around a transparent gap-grid painted as a phantom plate. */
+.mob-swipe {
+  gap: 1.25rem !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.mob-swipe>* {
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  background-clip: padding-box;
+  box-shadow: var(--shadow-1);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.mob-swipe>*:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-2);
+}
+
+.mob-swipe.on-dark>* {
+  border-color: var(--rule-light);
+}
+
+.grid-cats {
+  gap: 0.9rem !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Lead category reads as the featured tile. */
+@media (min-width: 981px) {
+  .grid-cats> :first-child {
+    grid-column: span 2;
+  }
+}
+
+/* ═══ Featured projects: one tall feature + two stacked ═══ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  grid-auto-rows: minmax(230px, 1fr);
+  gap: 1.25rem;
+}
+
+.projects-grid> :first-child {
+  grid-row: span 2;
+  min-height: 480px;
+}
+
+@media (max-width: 900px) {
+  .projects-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: minmax(240px, auto);
+  }
+
+  .projects-grid> :first-child {
+    grid-row: auto;
+    min-height: 300px;
+  }
+}
+
+.project-tile {
+  position: relative;
+  min-height: 230px;
+}
+
+/* ═══ Hero glass stat strip ═══ */
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  gap: 1.25rem 2rem;
+  margin-top: clamp(2.5rem, 5vw, 3.75rem);
+  padding: 1.4rem clamp(1.25rem, 2.5vw, 2rem);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--rule-light);
+  border-radius: var(--radius);
+}
+
+/* Full-bleed hero owns the whole backdrop; the slide bars would float mid-page. */
+.hero-dots {
+  display: none;
+}
+
 /* Sector category cards: hairline grid cells that invert to ink on hover */
 /* Photo fills the tile; the box, padding and flex positions are unchanged —
    the image sits behind as an absolute layer, so the number/icon/title keep
@@ -754,7 +875,17 @@ html.lenis {
   justify-content: space-between;
   position: relative;
   overflow: hidden;
-  transition: background-color var(--dur) var(--ease);
+  border-radius: var(--radius);
+  transition: background-color var(--dur) var(--ease), transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.sector-card {
+  box-shadow: var(--shadow-1);
+}
+
+.sector-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-2);
 }
 
 /* Everything except the photo layer rides above the scrim. */
@@ -774,22 +905,22 @@ html.lenis {
    on a bright patch (white kitchens, produce shelves). Their own shadow keeps
    them legible whatever the photo does. */
 .sector-card .sc-num {
-  text-shadow: 0 1px 6px rgba(22, 19, 14, 0.85);
+  text-shadow: 0 1px 6px rgba(15, 27, 38, 0.85);
 }
 
 .sector-card .sc-icon {
   color: rgba(255, 255, 255, 0.85);
-  filter: drop-shadow(0 1px 5px rgba(22, 19, 14, 0.8));
+  filter: drop-shadow(0 1px 5px rgba(15, 27, 38, 0.8));
 }
 
 .sector-card .sc-title {
   color: #fff;
-  text-shadow: 0 1px 10px rgba(22, 19, 14, 0.55);
+  text-shadow: 0 1px 10px rgba(15, 27, 38, 0.55);
 }
 
 .sector-card .sc-arrow {
   color: #fff;
-  filter: drop-shadow(0 1px 5px rgba(22, 19, 14, 0.8));
+  filter: drop-shadow(0 1px 5px rgba(15, 27, 38, 0.8));
 }
 
 .sector-card:hover .sc-icon {
@@ -810,7 +941,7 @@ html.lenis {
   align-items: center;
   justify-content: center;
   border: 1px solid var(--rule-light);
-  border-radius: 3px;
+  border-radius: 999px;
   color: rgba(255, 255, 255, 0.75);
   transition: all var(--dur) var(--ease);
 }
@@ -834,6 +965,7 @@ html.lenis {
   overflow: hidden;
   background-color: var(--ink);
   border: 1px solid var(--rule);
+  border-radius: var(--radius);
   isolation: isolate;
 }
 
@@ -866,16 +998,16 @@ button:hover .figure img,
    buffets, white kitchens) otherwise wash out the text over them. */
 .figure-scrim::after {
   background: linear-gradient(180deg,
-      rgba(22, 19, 14, 0.12) 0%,
-      rgba(22, 19, 14, 0.42) 38%,
-      rgba(22, 19, 14, 0.76) 68%,
-      rgba(22, 19, 14, 0.93) 100%);
+      rgba(15, 27, 38, 0.12) 0%,
+      rgba(15, 27, 38, 0.42) 38%,
+      rgba(15, 27, 38, 0.76) 68%,
+      rgba(15, 27, 38, 0.93) 100%);
 }
 
 .figure-scrim-soft::after {
   background: linear-gradient(180deg,
-      rgba(22, 19, 14, 0) 35%,
-      rgba(22, 19, 14, 0.6) 100%);
+      rgba(15, 27, 38, 0) 35%,
+      rgba(15, 27, 38, 0.6) 100%);
 }
 
 /* Caption block that sits over the bottom of a scrimmed frame. */
@@ -891,10 +1023,11 @@ button:hover .figure img,
 
 .figure-index {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 0.8rem;
+  right: 0.8rem;
+  border-radius: 999px;
   z-index: 2;
-  padding: 0.5rem 0.85rem;
+  padding: 0.4rem 0.85rem;
   background: var(--ink);
   color: var(--paper);
   font-family: var(--font-sans);
@@ -905,10 +1038,11 @@ button:hover .figure img,
 /* Small uppercase tag pinned to the top-left of a frame. */
 .figure-tag {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0.8rem;
+  left: 0.8rem;
+  border-radius: 999px;
   z-index: 2;
-  padding: 0.45rem 0.8rem;
+  padding: 0.42rem 0.85rem;
   background: var(--paper);
   color: var(--ink);
   font-size: 0.68rem;
@@ -934,6 +1068,8 @@ button:hover .figure img,
   overflow: hidden;
   background-color: var(--ink);
   border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
 }
 
 .media-tile h3 {
@@ -979,10 +1115,10 @@ button:hover .figure img,
   inset: 0;
   z-index: 1;
   background: linear-gradient(100deg,
-      rgba(22, 19, 14, 0.94) 0%,
-      rgba(22, 19, 14, 0.82) 45%,
-      rgba(22, 19, 14, 0.5) 75%,
-      rgba(22, 19, 14, 0.35) 100%);
+      rgba(15, 27, 38, 0.94) 0%,
+      rgba(15, 27, 38, 0.82) 45%,
+      rgba(15, 27, 38, 0.5) 75%,
+      rgba(15, 27, 38, 0.35) 100%);
 }
 
 .page-hero .page-hero-inner {
@@ -993,10 +1129,10 @@ button:hover .figure img,
 /* ═══ Filter chips (projects / fabrication) ═══ */
 .filter-chip {
   padding: 0.55rem 1.1rem;
-  background-color: transparent;
+  background-color: var(--surface);
   color: var(--ink);
-  border: 1px solid var(--rule);
-  border-radius: 0;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -1007,7 +1143,7 @@ button:hover .figure img,
 
 .filter-chip:hover {
   border-color: var(--ink);
-  background-color: rgba(22, 19, 14, 0.04);
+  background-color: rgba(15, 27, 38, 0.04);
 }
 
 .filter-chip.is-active {
@@ -1086,6 +1222,7 @@ button:hover .figure img,
   /* Category index: always two columns, compact cells */
   .grid-cats {
     grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.6rem !important;
   }
 
   .sector-card {
@@ -1142,9 +1279,7 @@ button:hover .figure img,
     grid-auto-flow: column !important;
     grid-auto-columns: 80% !important;
     grid-template-columns: none !important;
-    gap: 0.7rem !important;
-    border: none !important;
-    background: transparent !important;
+    gap: 0.8rem !important;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
@@ -1164,9 +1299,18 @@ button:hover .figure img,
     display: none;
   }
 
+  .mob-swipe {
+    border-radius: 0;
+    box-shadow: none;
+    overflow-x: auto;
+  }
+
   .mob-swipe>* {
     scroll-snap-align: start;
     border: 1px solid var(--rule);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background-clip: padding-box;
   }
 
   .mob-swipe.on-dark>* {

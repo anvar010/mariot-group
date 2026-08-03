@@ -51,7 +51,7 @@ export default function CostCalculator() {
   };
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 380px), 1fr))', border: '1px solid var(--rule)' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 380px), 1fr))', border: '1px solid var(--rule)', borderRadius: 'var(--radius)', overflow: 'hidden', boxShadow: 'var(--shadow-1)' }}>
       {/* Controls */}
       <div style={{ padding: 'clamp(1.5rem, 4vw, 3rem)', display: 'flex', flexDirection: 'column', gap: '1.5rem', borderRight: '1px solid var(--rule)', backgroundColor: 'var(--paper)' }}>
         <div>

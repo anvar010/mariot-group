@@ -30,7 +30,7 @@ export default function LangToggle() {
         gap: '0.4rem',
         padding: '0.5rem 0.75rem',
         border: '1px solid var(--rule)',
-        borderRadius: '3px',
+        borderRadius: '999px',
         backgroundColor: 'transparent',
         color: 'var(--ink)',
         fontSize: '0.78rem',

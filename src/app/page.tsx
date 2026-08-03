@@ -186,77 +186,62 @@ export default function Home() {
   return (
     <main>
       {/* ── HERO ─────────────────────────────────────────── */}
-      <section style={{ position: 'relative', paddingTop: 'clamp(7rem, 13vh, 10rem)', backgroundColor: 'var(--paper)' }}>
-        <div style={{ ...container, position: 'relative', zIndex: 2 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 480px), 1fr))', gap: 'clamp(2.5rem, 5vw, 5rem)', alignItems: 'center', paddingBottom: 'clamp(3.5rem, 6vw, 5.5rem)' }}>
+      <section style={{ position: 'relative', backgroundColor: 'var(--ink)', color: '#fff', overflow: 'hidden' }}>
+        {/* Full-bleed slideshow with a left-weighted veil so the copy always
+            sits on a dark field regardless of which photo is up. */}
+        <HeroSlideshow />
+        <div aria-hidden style={{ position: 'absolute', inset: 0, zIndex: 1, background: 'linear-gradient(102deg, rgba(15, 27, 38, 0.94) 0%, rgba(15, 27, 38, 0.82) 42%, rgba(15, 27, 38, 0.45) 75%, rgba(15, 27, 38, 0.3) 100%)' }} />
 
-            {/* Left: headline */}
-            <div>
-              <ScrollReveal>
-                <span className="eyebrow" style={{ marginBottom: '1.75rem' }}>Commercial Kitchen Specialists · UAE &amp; GCC</span>
-              </ScrollReveal>
-              <ScrollReveal delay={100}>
-                <h1 className="h1" style={{ margin: '1.25rem 0 2rem' }}>
-                  Turnkey kitchen<br />
-                  solutions for<br />
-                  <HeroRotator />
-                </h1>
-              </ScrollReveal>
-              <ScrollReveal delay={200}>
-                <p className="p-large" style={{ maxWidth: '520px', marginBottom: '2.5rem' }}>
-                  We supply and support commercial kitchen, refrigeration, stainless steel, laundry, and food service projects across UAE and GCC.
-                </p>
-              </ScrollReveal>
-              <ScrollReveal delay={300}>
-                <div className="hero-cta">
-                  <a href="https://mariotstore.com" target="_blank" rel="noopener noreferrer" className="premium-btn red-btn">
-                    Shop Now
-                    <span className="btn-circle">{arrowIcon}</span>
-                  </a>
-                  <Link href="/contact" className="btn-secondary" style={{ padding: '0.85rem 2rem' }}>
-                    Get a Free Quote
-                  </Link>
-                </div>
-              </ScrollReveal>
-              <ScrollReveal delay={400}>
-                <div style={{ display: 'flex', flexWrap: 'wrap', borderTop: '1px solid var(--rule)' }}>
-                  {['20+ Years Experience', 'Quality Guaranteed', 'Fast UAE Delivery'].map((badge) => (
-                    <div key={badge} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', padding: '1.1rem 1.75rem 0 0', fontSize: '0.85rem', fontWeight: 600 }}>
-                      <span style={{ color: 'var(--primary)' }}>✓</span> {badge}
-                    </div>
-                  ))}
-                </div>
-              </ScrollReveal>
-            </div>
-
-            {/* Right: framed slideshow panel */}
-            <ScrollReveal delay={250}>
-              <div style={{ position: 'relative', margin: '1.25rem 0 1.75rem' }}>
-                {/* Offset accent frame */}
-                <div aria-hidden style={{ position: 'absolute', top: '14px', left: '14px', width: '100%', height: '100%', border: '1px solid var(--rule)', pointerEvents: 'none' }} />
-
-                <div style={{ position: 'relative', aspectRatio: '4 / 3', overflow: 'hidden', border: '1px solid var(--ink)', backgroundColor: 'var(--ink)' }}>
-                  <HeroSlideshow />
-                </div>
-
-                {/* Since 2004 chip */}
-                <div style={{ position: 'absolute', top: '-16px', right: '18px', backgroundColor: 'var(--accent)', color: '#fff', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.9rem', letterSpacing: '0.06em', padding: '0.5rem 0.9rem', zIndex: 3 }}>
-                  Since 2004
-                </div>
-
-                {/* Floating stat card */}
-                <div style={{ position: 'absolute', bottom: '-22px', left: '18px', backgroundColor: 'var(--ink)', color: '#fff', display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.9rem 1.4rem', zIndex: 3 }}>
-                  <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.75rem', color: 'var(--primary)', lineHeight: 1 }}>500+</span>
-                  <span style={{ fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.85)' }}>Delivered<br />Projects</span>
-                </div>
+        <div style={{ ...container, position: 'relative', zIndex: 2, paddingTop: 'clamp(8rem, 15vh, 11rem)', paddingBottom: 'clamp(2.5rem, 5vw, 4rem)' }}>
+          <div style={{ maxWidth: '720px' }}>
+            <ScrollReveal>
+              <span className="eyebrow on-dark" style={{ marginBottom: '1.75rem' }}>Commercial Kitchen Specialists · UAE &amp; GCC</span>
+            </ScrollReveal>
+            <ScrollReveal delay={100}>
+              <h1 className="h1" style={{ margin: '1.25rem 0 1.75rem', color: '#fff' }}>
+                Turnkey kitchen<br />
+                solutions for<br />
+                <HeroRotator />
+              </h1>
+            </ScrollReveal>
+            <ScrollReveal delay={200}>
+              <p className="p-large" style={{ maxWidth: '520px', marginBottom: '2.25rem', color: 'rgba(255,255,255,0.78)' }}>
+                We supply and support commercial kitchen, refrigeration, stainless steel, laundry, and food service projects across UAE and GCC.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={300}>
+              <div className="hero-cta">
+                <a href="https://mariotstore.com" target="_blank" rel="noopener noreferrer" className="premium-btn red-btn">
+                  Shop Now
+                  <span className="btn-circle">{arrowIcon}</span>
+                </a>
+                <Link href="/contact" className="btn-secondary-white" style={{ padding: '0.85rem 2rem' }}>
+                  Get a Free Quote
+                </Link>
               </div>
             </ScrollReveal>
-
           </div>
+
+          {/* Glass stat strip: the trust badges and the old floating chips in one row */}
+          <ScrollReveal delay={400}>
+            <div className="hero-stats">
+              {[
+                { value: 'Since 2004', label: '20+ Years Experience' },
+                { value: '500+', label: 'Delivered Projects' },
+                { value: '7', label: 'Emirates Served' },
+                { value: '100%', label: 'Quality Guaranteed' },
+              ].map((stat, i) => (
+                <div key={stat.label}>
+                  <span style={{ display: 'block', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(1.2rem, 2vw, 1.6rem)', lineHeight: 1.1, color: i % 2 === 0 ? 'var(--primary)' : '#fff' }}>{stat.value}</span>
+                  <span style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.65)', marginTop: '0.3rem' }}>{stat.label}</span>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
         </div>
 
         {/* Client marquee band */}
-        <div style={{ backgroundColor: 'var(--ink)', color: 'var(--paper)', overflow: 'hidden', padding: '1.1rem 0', position: 'relative', zIndex: 2 }}>
+        <div style={{ backgroundColor: 'rgba(15, 27, 38, 0.88)', backdropFilter: 'blur(8px)', color: '#fff', overflow: 'hidden', padding: '1.1rem 0', position: 'relative', zIndex: 2, borderTop: '1px solid var(--rule-light)' }}>
           <div className="marquee-track" style={{ animationDuration: '45s' }}>
             {[...HOSPITALITY_CLIENTS, ...HOSPITALITY_CLIENTS].map((client, i) => (
               <span key={`${client}-${i}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '2.5rem', paddingRight: '2.5rem', whiteSpace: 'nowrap' }}>
@@ -398,26 +383,25 @@ export default function Home() {
             </div>
           </ScrollReveal>
 
-          <div className="mob-swipe" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '1.5rem' }}>
+          {/* One large feature tile, two stacked beside it; the caption lives on
+              the photo so every card bottoms out on the same line. */}
+          <div className="projects-grid">
             {PROJECTS.map((project, i) => (
-              <ScrollReveal key={project.title} delay={i * 120}>
-                <Link href="/projects" className="hover-lift" style={{ display: 'block', border: '1px solid var(--rule)' }}>
-                  <Figure
-                    photo={project.photo}
-                    scrim="soft"
-                    sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
-                    className="figure-zoom"
-                    style={{ height: '260px', border: 'none', borderBottom: '1px solid var(--rule)' }}
-                  >
-                    <span style={{ position: 'absolute', top: '1.25rem', left: '1.25rem', zIndex: 2, backgroundColor: 'var(--paper)', color: 'var(--ink)', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', padding: '0.4rem 0.75rem' }}>{project.tag}</span>
-                    <span aria-hidden style={{ position: 'absolute', bottom: '0.25rem', right: '1rem', zIndex: 2, fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '5rem', color: 'rgba(255,255,255,0.32)', lineHeight: 1 }}>{String(i + 1).padStart(2, '0')}</span>
-                  </Figure>
-                  <div style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', backgroundColor: 'var(--surface)' }}>
-                    <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.25rem', lineHeight: 1.15 }}>{project.title}</h3>
-                    <span style={{ color: 'var(--primary)', flexShrink: 0 }}>{arrowIcon}</span>
+              <Link href="/projects" key={project.title} className="media-tile figure-zoom project-tile">
+                <Figure
+                  photo={project.photo}
+                  scrim="full"
+                  sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 40vw"
+                  style={{ position: 'absolute', inset: 0, border: 'none', borderRadius: 0 }}
+                />
+                <div className="tile-body">
+                  <span style={{ alignSelf: 'flex-start', backgroundColor: 'rgba(255,255,255,0.14)', backdropFilter: 'blur(6px)', color: '#fff', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', padding: '0.45rem 0.9rem', borderRadius: '999px', marginBottom: 'auto' }}>{project.tag}</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '1rem', marginTop: '1.5rem' }}>
+                    <h3 style={{ fontSize: i === 0 ? 'clamp(1.4rem, 2.4vw, 1.9rem)' : '1.2rem' }}>{project.title}</h3>
+                    <span style={{ color: 'var(--primary)', flexShrink: 0, backgroundColor: 'rgba(255,255,255,0.95)', borderRadius: '999px', width: '38px', height: '38px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{arrowIcon}</span>
                   </div>
-                </Link>
-              </ScrollReveal>
+                </div>
+              </Link>
             ))}
           </div>
         </div>

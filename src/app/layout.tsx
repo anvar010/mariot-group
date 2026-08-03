@@ -1,15 +1,22 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Lexend, Source_Sans_3 } from 'next/font/google';
 import './globals.css';
 import SmoothScroll from '@/components/SmoothScroll';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-/* One ordinary sans for the whole site. `--font-display` is kept as a separate
-   variable — it now resolves to the same family, so headings and figures just
-   read as heavier text rather than a different typeface. Pointing it somewhere
-   else later is a one-line change. */
-const inter = Inter({
+/* Trust-and-authority pairing: Lexend carries headings and display moments,
+   Source Sans 3 carries body copy. Lexend deliberately ships only 500-700 —
+   older inline styles still ask for weight 400 on display type, and the
+   browser resolving that to 500+ is what keeps those titles from going thin. */
+const lexend = Lexend({
+  subsets: ['latin'],
+  weight: ['500', '600', '700'],
+  display: 'swap',
+  variable: '--font-display',
+});
+
+const sourceSans = Source_Sans_3({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-body',
@@ -27,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${lexend.variable} ${sourceSans.variable}`}>
       <body>
         <SmoothScroll>
           <Header />
