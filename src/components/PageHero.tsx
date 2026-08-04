@@ -37,6 +37,7 @@ export default function PageHero({
           fill
           sizes="100vw"
           priority
+          unoptimized
           placeholder="blur"
           blurDataURL={source.blurDataURL}
         />

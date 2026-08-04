@@ -218,7 +218,7 @@ export default function Header() {
                 className="footer-link"
                 style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', padding: '0.85rem 0', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.35rem', letterSpacing: '0.03em', color: 'var(--ink)' }}
               >
-                <span style={{ fontSize: '0.75rem', color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)' }}>{String(i + 1).padStart(2, '0')}</span>
+                <span style={{ fontSize: '0.75rem', color: 'var(--ink)' }}>{String(i + 1).padStart(2, '0')}</span>
                 {item.name}
               </Link>
             </li>

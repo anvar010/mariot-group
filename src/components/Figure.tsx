@@ -54,6 +54,7 @@ export default function Figure({
         fill
         sizes={sizes}
         priority={priority}
+        unoptimized
         placeholder="blur"
         blurDataURL={source.blurDataURL}
       />
