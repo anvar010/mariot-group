@@ -29,10 +29,12 @@ export default function LangToggle() {
         alignItems: 'center',
         gap: '0.4rem',
         padding: '0.5rem 0.75rem',
-        border: '1px solid var(--rule)',
+        /* Falls back to the ink palette so the control still reads if it is
+           ever used outside the header, which owns these two variables. */
+        border: '1px solid var(--header-rule, var(--rule))',
         borderRadius: '999px',
         backgroundColor: 'transparent',
-        color: 'var(--ink)',
+        color: 'var(--header-fg, var(--ink))',
         fontSize: '0.78rem',
         fontWeight: 700,
         letterSpacing: '0.04em',

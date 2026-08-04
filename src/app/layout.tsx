@@ -35,7 +35,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${lexend.variable} ${sourceSans.variable}`}>
-      <body>
+      {/* Browser extensions (password managers, ColorZilla's cz-shortcut-listen,
+          etc.) stamp attributes onto <body> before React hydrates, which React
+          reports as a mismatch we can't fix from here. Suppression is one level
+          deep, so real mismatches inside the tree still surface. */}
+      <body suppressHydrationWarning>
         <SmoothScroll>
           <Header />
           {children}

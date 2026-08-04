@@ -1,6 +1,8 @@
+import { Suspense } from 'react';
 import ScrollReveal from '@/components/ScrollReveal';
 import PageHero from '@/components/PageHero';
 import ProjectGallery, { type GalleryItem } from '@/components/ProjectGallery';
+import { SECTORS } from '@/lib/sectors';
 import Link from 'next/link';
 
 export const metadata = {
@@ -55,11 +57,27 @@ export default function Projects() {
               <h2 className="h2" style={{ marginTop: '1.25rem' }}>
                 Filter by sector
               </h2>
+              <p className="p-large" style={{ marginTop: '1rem' }}>
+                Pick a sector to see the deliveries in it. Every segment we serve is
+                listed, so an empty result means we have not published that work yet,
+                not that we have not done it.
+              </p>
             </div>
           </ScrollReveal>
 
           <ScrollReveal delay={100}>
-            <ProjectGallery items={PROJECTS} />
+            {/* ProjectGallery reads the ?category= param, and this route is
+                prerendered, so the Suspense boundary is required: without it
+                the production build fails on the CSR bailout. Chips come from
+                SECTORS rather than from PROJECTS so every sector the site
+                claims to serve is filterable, including the ones with no
+                project filed under them yet. */}
+            <Suspense fallback={<div style={{ minHeight: '420px' }} />}>
+              <ProjectGallery
+                items={PROJECTS}
+                categories={SECTORS.map(({ name, slug }) => ({ name, slug }))}
+              />
+            </Suspense>
           </ScrollReveal>
         </div>
       </section>

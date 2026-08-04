@@ -44,28 +44,15 @@ export default function Header() {
 
   return (
     <>
-      <header
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 101,
-          transition: 'box-shadow 0.3s ease',
-          backgroundColor: 'var(--glass-bg)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          borderBottom: '1px solid var(--rule)',
-          boxShadow: scrolled ? '0 8px 30px rgba(22,19,14,0.08)' : 'none',
-          color: 'var(--ink)',
-        }}
-      >
+      {/* Transparent while the page is at the top, where every route opens on
+          a dark photographic hero, then resolves to the glass bar on scroll.
+          Colours come from --header-fg / --header-rule so descendants,
+          including LangToggle, follow the state without prop drilling. */}
+      <header className={`site-header${scrolled ? '' : ' is-transparent'}`}>
         {/* Top utility bar */}
         <div
           className="topbar"
           style={{
-            backgroundColor: 'var(--ink)',
-            color: 'var(--paper)',
             fontSize: '0.75rem',
             fontWeight: 600,
             letterSpacing: '0.04em',
@@ -92,12 +79,13 @@ export default function Header() {
         {/* Main bar */}
         <div style={{ maxWidth: '1320px', margin: '0 auto', padding: '0.9rem var(--gutter)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1.5rem' }}>
           {/* Logo */}
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+          <Link href="/" className="header-logo" style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
             <Image
               src="/logo.png"
               alt="Mariot Kitchen Equipment"
-              width={150}
-              height={42}
+              width={1220}
+              height={300}
+              sizes="150px"
               preload
               style={{ objectFit: 'contain', width: 'clamp(104px, 26vw, 150px)', height: 'auto' }}
             />
@@ -111,7 +99,7 @@ export default function Header() {
                   <Link
                     href={item.href}
                     className="footer-link"
-                    style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--ink)' }}
+                    style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--header-fg)' }}
                   >
                     {item.name}
                   </Link>
@@ -132,7 +120,7 @@ export default function Header() {
               style={{
                 background: 'none',
                 border: 'none',
-                color: 'var(--ink)',
+                color: 'var(--header-fg)',
                 cursor: 'pointer',
                 padding: '0.5rem',
                 display: 'flex',

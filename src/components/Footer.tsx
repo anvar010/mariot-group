@@ -118,9 +118,10 @@ export default function Footer() {
               <Image
                 src="/logo.png"
                 alt="Mariot Kitchen Equipment"
-                width={130}
-                height={36}
-                style={{ objectFit: 'contain', display: 'block' }}
+                width={1220}
+                height={300}
+                sizes="130px"
+                style={{ objectFit: 'contain', display: 'block', width: '130px', height: 'auto' }}
               />
             </Link>
             <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.95rem', lineHeight: 1.7, marginBottom: '1.75rem', maxWidth: '340px' }}>

@@ -35,10 +35,19 @@ const arrowIcon = (
   </svg>
 );
 
+/* Named on the site as customers, so these need to be accounts Mariot can
+   actually evidence and has permission to name. */
 const HOSPITALITY_CLIENTS = [
   'Marriott', 'Hilton', 'Rotana', 'Jumeirah', 'Emaar Hospitality', 'Rixos',
   'Address Hotels', 'Millennium', 'Sheraton', 'Mövenpick', 'Fairmont',
   'Grand Hyatt', 'Waldorf Astoria', 'Ritz-Carlton', 'Kempinski', 'Radisson Blu',
+];
+
+const HERO_STATS = [
+  { value: 'Since 2004', label: '20+ Years Experience' },
+  { value: '500+', label: 'Delivered Projects' },
+  { value: '7', label: 'Emirates Served' },
+  { value: '100%', label: 'Quality Guaranteed' },
 ];
 
 const CATEGORIES: { name: string; icon: React.ReactNode }[] = [
@@ -95,6 +104,10 @@ const CATEGORIES: { name: string; icon: React.ReactNode }[] = [
 /** Same photo per sector as /sectors — sourced from the shared list so the two
  *  can never drift apart. */
 const SECTOR_PHOTO = new Map<string, PhotoKey>(SECTORS.map((s) => [s.name, s.photo]));
+
+/** Slug per sector, so a tile links straight to that sector's filtered view
+ *  on /projects. Same source as the photos, so the two cannot diverge. */
+const SECTOR_SLUG = new Map<string, string>(SECTORS.map((s) => [s.name, s.slug]));
 
 const HUB_SERVICES = [
   { title: 'Business / Trade Account', desc: 'Open a trade account and enjoy ongoing B2B support.', cta: 'Apply for Account' },
@@ -185,28 +198,31 @@ const INSIGHTS: { tag: string; title: string; photo: PhotoKey }[] = [
 export default function Home() {
   return (
     <main>
-      {/* ── HERO ─────────────────────────────────────────── */}
-      <section style={{ position: 'relative', backgroundColor: 'var(--ink)', color: '#fff', overflow: 'hidden' }}>
-        {/* Full-bleed slideshow with a left-weighted veil so the copy always
-            sits on a dark field regardless of which photo is up. */}
+      {/* ── HERO ─────────────────────────────────────────────
+          Asymmetric split: copy holds the left column, the photograph carries
+          the right. The section is a flex column so the copy centres in
+          whatever height is left over while the stat panel and client band
+          stay pinned to the bottom edge, rather than all six blocks stacking
+          from the top and pushing the CTAs toward the fold. */}
+      <section className="hero">
         <HeroSlideshow />
-        <div aria-hidden style={{ position: 'absolute', inset: 0, zIndex: 1, background: 'linear-gradient(102deg, rgba(15, 27, 38, 0.94) 0%, rgba(15, 27, 38, 0.82) 42%, rgba(15, 27, 38, 0.45) 75%, rgba(15, 27, 38, 0.3) 100%)' }} />
+        <div aria-hidden className="hero-veil" />
 
-        <div style={{ ...container, position: 'relative', zIndex: 2, paddingTop: 'clamp(8rem, 15vh, 11rem)', paddingBottom: 'clamp(2.5rem, 5vw, 4rem)' }}>
-          <div style={{ maxWidth: '720px' }}>
+        <div className="hero-inner">
+          <div style={container}>
+            <div className="hero-copy">
             <ScrollReveal>
-              <span className="eyebrow on-dark" style={{ marginBottom: '1.75rem' }}>Commercial Kitchen Specialists · UAE &amp; GCC</span>
+              <span className="eyebrow on-dark">Commercial Kitchen Specialists · UAE &amp; GCC</span>
             </ScrollReveal>
             <ScrollReveal delay={100}>
-              <h1 className="h1" style={{ margin: '1.25rem 0 1.75rem', color: '#fff' }}>
-                Turnkey kitchen<br />
-                solutions for<br />
-                <HeroRotator />
+              <h1 className="h1 hero-title">
+                Turnkey kitchen solutions<br />
+                for <HeroRotator />
               </h1>
             </ScrollReveal>
             <ScrollReveal delay={200}>
-              <p className="p-large" style={{ maxWidth: '520px', marginBottom: '2.25rem', color: 'rgba(255,255,255,0.78)' }}>
-                We supply and support commercial kitchen, refrigeration, stainless steel, laundry, and food service projects across UAE and GCC.
+              <p className="p-large hero-sub">
+                Equipment, refrigeration, stainless steel and laundry for food service projects across the UAE and GCC.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={300}>
@@ -220,28 +236,27 @@ export default function Home() {
                 </Link>
               </div>
             </ScrollReveal>
-          </div>
-
-          {/* Glass stat strip: the trust badges and the old floating chips in one row */}
-          <ScrollReveal delay={400}>
-            <div className="hero-stats">
-              {[
-                { value: 'Since 2004', label: '20+ Years Experience' },
-                { value: '500+', label: 'Delivered Projects' },
-                { value: '7', label: 'Emirates Served' },
-                { value: '100%', label: 'Quality Guaranteed' },
-              ].map((stat, i) => (
-                <div key={stat.label}>
-                  <span style={{ display: 'block', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(1.2rem, 2vw, 1.6rem)', lineHeight: 1.1, color: i % 2 === 0 ? 'var(--primary)' : '#fff' }}>{stat.value}</span>
-                  <span style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.65)', marginTop: '0.3rem' }}>{stat.label}</span>
-                </div>
-              ))}
             </div>
-          </ScrollReveal>
+          </div>
         </div>
 
-        {/* Client marquee band */}
-        <div style={{ backgroundColor: 'rgba(15, 27, 38, 0.88)', backdropFilter: 'blur(8px)', color: '#fff', overflow: 'hidden', padding: '1.1rem 0', position: 'relative', zIndex: 2, borderTop: '1px solid var(--rule-light)' }}>
+        {/* Glass stat panel, pinned to the bottom of the hero. */}
+        <div className="hero-proof">
+          <div style={container}>
+            <ScrollReveal delay={400}>
+              <div className="hero-stats">
+                {HERO_STATS.map((stat, i) => (
+                  <div key={stat.label}>
+                    <span style={{ display: 'block', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(1.2rem, 2vw, 1.6rem)', lineHeight: 1.1, color: i % 2 === 0 ? 'var(--primary)' : '#fff' }}>{stat.value}</span>
+                    <span style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.65)', marginTop: '0.3rem' }}>{stat.label}</span>
+                  </div>
+                ))}
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+
+        <div className="client-band">
           <div className="marquee-track" style={{ animationDuration: '45s' }}>
             {[...HOSPITALITY_CLIENTS, ...HOSPITALITY_CLIENTS].map((client, i) => (
               <span key={`${client}-${i}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '2.5rem', paddingRight: '2.5rem', whiteSpace: 'nowrap' }}>
@@ -306,7 +321,11 @@ export default function Home() {
           <ScrollReveal>
             <div className="grid-cats" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 210px), 1fr))', gap: '1px', backgroundColor: 'var(--rule)', border: '1px solid var(--rule)' }}>
               {CATEGORIES.map((cat, i) => (
-                <Link href="/sectors" key={cat.name} className="sector-card">
+                <Link
+                  href={SECTOR_SLUG.has(cat.name) ? `/projects?category=${SECTOR_SLUG.get(cat.name)}` : '/sectors'}
+                  key={cat.name}
+                  className="sector-card"
+                >
                   {SECTOR_PHOTO.get(cat.name) && (
                     <Figure
                       photo={SECTOR_PHOTO.get(cat.name)!}
@@ -316,7 +335,10 @@ export default function Home() {
                     />
                   )}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <span className="sc-num" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem', color: i % 3 === 1 ? 'var(--accent)' : 'var(--primary)' }}>
+                    {/* Softened rather than pure white: the title beneath is
+                        solid #fff, so a full-strength numeral would compete
+                        with it instead of sitting under it. */}
+                    <span className="sc-num" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem', color: 'rgba(255,255,255,0.85)' }}>
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <span className="sc-arrow">
@@ -355,7 +377,10 @@ export default function Home() {
             {HUB_SERVICES.map((service, i) => (
               <ScrollReveal key={service.title} delay={i * 100}>
                 <div className="cat-card hub-card" style={{ backgroundColor: 'var(--ink)', padding: 'clamp(1.75rem, 3vw, 2.5rem)', height: '100%', display: 'flex', flexDirection: 'column', gap: '1rem', minHeight: '260px' }}>
-                  <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem', color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)' }}>{String(i + 1).padStart(2, '0')}</span>
+                  {/* Inherits the card's text colour. These cards sit on ink,
+                      so the equivalent of the black numerals elsewhere on the
+                      page is the light paper tone, not a literal black. */}
+                  <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem', color: 'inherit' }}>{String(i + 1).padStart(2, '0')}</span>
                   <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(1.3rem, 2.2vw, 1.7rem)', lineHeight: 1.1 }}>{service.title}</h3>
                   <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.95rem', lineHeight: 1.6, flexGrow: 1 }}>{service.desc}</p>
                   <Link href="/business-hub" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)', fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
@@ -449,7 +474,7 @@ export default function Home() {
               <div style={{ borderTop: '1px solid var(--rule)' }}>
                 {WHY_MARIOT.map((reason, i) => (
                   <div key={reason.title} className="editorial-row" style={{ display: 'flex', gap: '1.25rem', alignItems: 'baseline', padding: '0.95rem 1rem', borderBottom: '1px solid var(--rule)' }}>
-                    <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem', color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)', width: '2rem', flexShrink: 0 }}>
+                    <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem', color: 'var(--ink)', width: '2rem', flexShrink: 0 }}>
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <div>
@@ -665,7 +690,10 @@ export default function Home() {
             {PACKAGES.map((pkg, i) => (
               <ScrollReveal key={pkg.title} delay={i * 80}>
                 <div className="cat-card pkg-card" style={{ backgroundColor: i === 4 ? 'var(--ink)' : '#ffffff', color: i === 4 ? 'var(--paper)' : 'var(--ink)', padding: 'clamp(1.75rem, 3vw, 2.25rem)', height: '100%', display: 'flex', flexDirection: 'column', gap: '1rem', minHeight: '280px' }}>
-                  <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem', color: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)' }}>{String(i + 1).padStart(2, '0')}</span>
+                  {/* Inherits the card's own text colour: ink on the white
+                      cards, paper on the dark fifth one, where a black
+                      numeral would disappear into the background. */}
+                  <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem', color: 'inherit' }}>{String(i + 1).padStart(2, '0')}</span>
                   <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(1.3rem, 2.2vw, 1.6rem)', lineHeight: 1.1 }}>{pkg.title}</h3>
                   <p style={{ color: i === 4 ? 'rgba(255,255,255,0.6)' : 'var(--ink-soft)', fontSize: '0.95rem', lineHeight: 1.6, flexGrow: 1 }}>{pkg.desc}</p>
                   <Link href="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: i === 4 ? 'var(--primary)' : 'var(--accent)', fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}>

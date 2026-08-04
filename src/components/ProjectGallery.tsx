@@ -1,6 +1,7 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Figure from '@/components/Figure';
 import type { PhotoKey } from '@/lib/images';
 
@@ -11,19 +12,71 @@ export type GalleryItem = {
   photo: PhotoKey;
 };
 
+export type GalleryCategory = {
+  name: string;
+  slug: string;
+};
+
 /**
- * Filterable project grid shared by /projects and /fabrication. The category
- * chips on those pages used to be inert buttons — this makes them work, and
- * derives the chip list from the items so it can never drift out of sync.
+ * Matches the slugs hand-written in src/lib/sectors.ts, so a chip derived
+ * from an item name lands on the same URL as one passed in from SECTORS.
+ * 'Villas & Palaces' -> 'villas-and-palaces', 'Cafés' -> 'cafes'.
  */
-export default function ProjectGallery({ items }: { items: GalleryItem[] }) {
-  const categories = useMemo(
-    () => ['All', ...Array.from(new Set(items.map((item) => item.category)))],
-    [items]
+function slugify(name: string): string {
+  return name
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+/**
+ * Filterable project grid shared by /projects and /fabrication.
+ *
+ * The active filter lives in the URL rather than in component state, so a
+ * sector link from the home page (/projects?category=restaurants) lands
+ * pre-filtered, the result is shareable, and Back steps through filters.
+ *
+ * Reads useSearchParams, so callers on a prerendered route must wrap this in
+ * a Suspense boundary or the production build fails.
+ */
+export default function ProjectGallery({
+  items,
+  categories,
+}: {
+  items: GalleryItem[];
+  /** Full sector list, so a sector still gets a chip when no project is filed
+   *  under it yet. Falls back to only the categories present in `items`. */
+  categories?: GalleryCategory[];
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const chips = useMemo<GalleryCategory[]>(
+    () =>
+      categories ??
+      Array.from(new Set(items.map((item) => item.category))).map((name) => ({
+        name,
+        slug: slugify(name),
+      })),
+    [categories, items]
   );
-  const [active, setActive] = useState('All');
+
+  /* An unknown or missing slug falls back to All rather than an empty grid,
+     so a stale or hand-typed URL degrades to the full list. */
+  const slug = searchParams.get('category');
+  const active = chips.find((chip) => chip.slug === slug)?.name ?? 'All';
 
   const visible = active === 'All' ? items : items.filter((item) => item.category === active);
+
+  const select = (next: string | null) => {
+    /* replace, not push: filtering is not a navigation the user wants to
+       unwind one chip at a time. scroll:false keeps the grid in place. */
+    router.replace(next ? `${pathname}?category=${next}` : pathname, { scroll: false });
+  };
 
   return (
     <>
@@ -37,15 +90,23 @@ export default function ProjectGallery({ items }: { items: GalleryItem[] }) {
           marginBottom: 'clamp(2rem, 4vw, 3rem)',
         }}
       >
-        {categories.map((category) => (
+        <button
+          type="button"
+          onClick={() => select(null)}
+          aria-pressed={active === 'All'}
+          className={`filter-chip${active === 'All' ? ' is-active' : ''}`}
+        >
+          All
+        </button>
+        {chips.map((chip) => (
           <button
-            key={category}
+            key={chip.slug}
             type="button"
-            onClick={() => setActive(category)}
-            aria-pressed={active === category}
-            className={`filter-chip${active === category ? ' is-active' : ''}`}
+            onClick={() => select(chip.slug)}
+            aria-pressed={active === chip.name}
+            className={`filter-chip${active === chip.name ? ' is-active' : ''}`}
           >
-            {category}
+            {chip.name}
           </button>
         ))}
       </div>

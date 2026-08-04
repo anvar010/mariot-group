@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import ScrollReveal from '@/components/ScrollReveal';
 import PageHero from '@/components/PageHero';
 import Figure from '@/components/Figure';
@@ -244,7 +245,12 @@ export default function Fabrication() {
           </ScrollReveal>
 
           <ScrollReveal delay={100}>
-            <ProjectGallery items={FABRICATION} />
+            {/* Required since ProjectGallery started reading ?category= and
+                this route is prerendered. Chips stay derived from the items
+                here: these are fabrication types, not the site's sectors. */}
+            <Suspense fallback={<div style={{ minHeight: '420px' }} />}>
+              <ProjectGallery items={FABRICATION} />
+            </Suspense>
           </ScrollReveal>
         </div>
       </section>
