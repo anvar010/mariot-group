@@ -4,34 +4,42 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import LangToggle from './LangToggle';
+import { useLanguage } from './LanguageProvider';
 
 const ALL_LINKS = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'How We Work', href: '/how-we-work' },
-  { name: 'Sectors', href: '/sectors' },
-  { name: 'Business Hub', href: '/business-hub' },
-  { name: 'Design Your Project', href: '/design-your-project' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'Fabrication', href: '/fabrication' },
-  { name: 'Maintenance', href: '/maintenance' },
-  { name: 'Brands', href: '/brands' },
-  { name: 'Branches', href: '/branches' },
-  { name: 'Contact', href: '/contact' },
+  { key: 'home', href: '/' },
+  { key: 'about', href: '/about' },
+  { key: 'howWeWork', href: '/how-we-work' },
+  { key: 'sectors', href: '/sectors' },
+  { key: 'businessHub', href: '/business-hub' },
+  { key: 'designYourProject', href: '/design-your-project' },
+  { key: 'projects', href: '/projects' },
+  { key: 'fabrication', href: '/fabrication' },
+  { key: 'maintenance', href: '/maintenance' },
+  { key: 'brands', href: '/brands' },
+  { key: 'branches', href: '/branches' },
+  { key: 'blog', href: '/blog' },
+  { key: 'consultation', href: '/consultation' },
+  { key: 'restaurantOpening', href: '/restaurant-opening' },
+  { key: 'urgentRequest', href: '/urgent-request' },
+  { key: 'requestQuote', href: '/quote' },
+  { key: 'contact', href: '/contact' },
 ];
 
 const DESKTOP_LINKS = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Sectors', href: '/sectors' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'Fabrication', href: '/fabrication' },
-  { name: 'Contact', href: '/contact' },
+  { key: 'home', href: '/' },
+  { key: 'about', href: '/about' },
+  { key: 'sectors', href: '/sectors' },
+  { key: 'projects', href: '/projects' },
+  { key: 'fabrication', href: '/fabrication' },
+  { key: 'contact', href: '/contact' },
 ];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { dir, t } = useLanguage();
+  const isRtl = dir === 'rtl';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,7 +56,7 @@ export default function Header() {
           a dark photographic hero, then resolves to the glass bar on scroll.
           Colours come from --header-fg / --header-rule so descendants,
           including LangToggle, follow the state without prop drilling. */}
-      <header className={`site-header${scrolled ? '' : ' is-transparent'}`}>
+      <header className={`site-header${scrolled || mobileMenuOpen ? '' : ' is-transparent'}`}>
         {/* Top utility bar */}
         <div
           className="topbar"
@@ -62,16 +70,16 @@ export default function Header() {
           <div style={{ maxWidth: '1320px', margin: '0 auto', padding: '0.45rem var(--gutter)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1.5rem' }}>
             <div style={{ display: 'flex', gap: '1.75rem', alignItems: 'center' }}>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
-                <span aria-hidden style={{ color: 'var(--primary)' }}>●</span> Delivery across all UAE emirates
+                <span aria-hidden style={{ color: 'var(--primary)' }}>●</span> {t('topbar.delivery')}
               </span>
               <a href="tel:+97142882777" className="footer-link" style={{ color: 'rgba(255,255,255,0.85)' }}>+971 4-288-2777</a>
               <a href="mailto:admin@mariotkitchen.com" className="footer-link" style={{ color: 'rgba(255,255,255,0.85)' }}>admin@mariotkitchen.com</a>
             </div>
             <div style={{ display: 'flex', gap: '1.75rem', alignItems: 'center' }}>
-              <a href="#" className="footer-link" style={{ color: 'rgba(255,255,255,0.85)' }}>Download Catalogue</a>
-              <Link href="/branches" className="footer-link" style={{ color: 'rgba(255,255,255,0.85)' }}>Our Branches</Link>
-              <a href="https://wa.me/97142882777" target="_blank" rel="noopener noreferrer" className="footer-link" style={{ color: 'rgba(255,255,255,0.85)' }}>WhatsApp</a>
-              <a href="https://mariotstore.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Shop Now →</a>
+              <a href="#" className="footer-link" style={{ color: 'rgba(255,255,255,0.85)' }}>{t('topbar.downloadCatalogue')}</a>
+              <Link href="/branches" className="footer-link" style={{ color: 'rgba(255,255,255,0.85)' }}>{t('topbar.ourBranches')}</Link>
+              <a href="https://wa.me/97142882777" target="_blank" rel="noopener noreferrer" className="footer-link" style={{ color: 'rgba(255,255,255,0.85)' }}>{t('topbar.whatsapp')}</a>
+              <a href="https://mariotstore.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>{t('topbar.shopNow')}</a>
             </div>
           </div>
         </div>
@@ -95,13 +103,13 @@ export default function Header() {
           <nav className="desktop-nav">
             <ul style={{ display: 'flex', listStyle: 'none', gap: 'clamp(1.25rem, 2.5vw, 2.25rem)', margin: 0, padding: 0, alignItems: 'center' }}>
               {DESKTOP_LINKS.map((item) => (
-                <li key={item.name}>
+                <li key={item.key}>
                   <Link
                     href={item.href}
                     className="footer-link"
                     style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--header-fg)' }}
                   >
-                    {item.name}
+                    {t(`nav.${item.key}`)}
                   </Link>
                 </li>
               ))}
@@ -112,7 +120,7 @@ export default function Header() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(0.5rem, 1.5vw, 1rem)' }}>
             <LangToggle />
             <Link href="/#quote" className="btn-primary quote-btn">
-              Get a Quote
+              {t('common.getQuote')}
             </Link>
 
             <button
@@ -120,6 +128,8 @@ export default function Header() {
               style={{
                 background: 'none',
                 border: 'none',
+                outline: 'none',
+                WebkitTapHighlightColor: 'transparent',
                 color: 'var(--header-fg)',
                 cursor: 'pointer',
                 padding: '0.5rem',
@@ -176,30 +186,33 @@ export default function Header() {
         />
       )}
 
-      {/* Sidebar Drawer */}
+      {/* Sidebar Drawer — opens from the reading-start edge: right in LTR, left in RTL. */}
       <div
+        data-lenis-prevent
+        dir={dir}
         style={{
           position: 'fixed',
           top: 0,
-          right: 0,
+          ...(isRtl ? { left: 0 } : { right: 0 }),
           bottom: 0,
           width: '100%',
           maxWidth: '380px',
           backgroundColor: 'var(--paper)',
           zIndex: 100,
-          transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)',
+          transform: mobileMenuOpen ? 'translateX(0)' : isRtl ? 'translateX(-100%)' : 'translateX(100%)',
           transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-          boxShadow: '-10px 0 40px rgba(22,19,14,0.15)',
-          borderLeft: '1px solid var(--rule)',
+          boxShadow: isRtl ? '10px 0 40px rgba(22,19,14,0.15)' : '-10px 0 40px rgba(22,19,14,0.15)',
+          ...(isRtl ? { borderRight: '1px solid var(--rule)' } : { borderLeft: '1px solid var(--rule)' }),
           padding: '9rem 2.5rem 2.5rem',
           display: 'flex',
           flexDirection: 'column',
           overflowY: 'auto',
+          overscrollBehavior: 'contain',
         }}
       >
         <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column' }}>
           {ALL_LINKS.map((item, i) => (
-            <li key={item.name} style={{ borderBottom: '1px solid var(--rule)' }}>
+            <li key={item.key} style={{ borderBottom: '1px solid var(--rule)' }}>
               <Link
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
@@ -207,14 +220,14 @@ export default function Header() {
                 style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', padding: '0.85rem 0', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.35rem', letterSpacing: '0.03em', color: 'var(--ink)' }}
               >
                 <span style={{ fontSize: '0.75rem', color: 'var(--ink)' }}>{String(i + 1).padStart(2, '0')}</span>
-                {item.name}
+                {t(`nav.${item.key}`)}
               </Link>
             </li>
           ))}
         </ul>
 
         <div style={{ marginTop: 'auto', paddingTop: '3rem' }}>
-          <p style={{ fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--ink-soft)', marginBottom: '1rem' }}>Contact us directly</p>
+          <p style={{ fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--ink-soft)', marginBottom: '1rem' }}>{t('footer.contactDirectly')}</p>
           <a href="tel:+97142882777" style={{ display: 'block', fontSize: '1.05rem', fontWeight: 700, color: 'var(--ink)', marginBottom: '0.35rem' }}>+971 4-288-2777</a>
           <a href="mailto:admin@mariotkitchen.com" style={{ display: 'block', fontSize: '1.05rem', fontWeight: 700, color: 'var(--ink)' }}>admin@mariotkitchen.com</a>
         </div>

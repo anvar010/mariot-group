@@ -1,14 +1,19 @@
 import Image from 'next/image';
-import { BRANDS } from '@/lib/brands';
+import { shopUrl, brandLogoSrc } from '@/lib/brands';
 
-function Row({ brands, reverse }: { brands: typeof BRANDS; reverse?: boolean }) {
+export type MarqueeBrand = { name: string; slug: string; file: string };
+
+function Row({ brands, reverse }: { brands: MarqueeBrand[]; reverse?: boolean }) {
   const doubled = [...brands, ...brands];
   return (
     <div style={{ overflow: 'hidden', borderTop: '1px solid var(--rule)' }}>
       <div className={`marquee-track${reverse ? ' reverse' : ''}`}>
         {doubled.map((brand, i) => (
-          <div
+          <a
             key={`${brand.file}-${i}`}
+            href={shopUrl(brand.slug)}
+            target="_blank"
+            rel="noopener noreferrer"
             className="brand-logo-tile"
             title={brand.name}
             style={{
@@ -25,26 +30,26 @@ function Row({ brands, reverse }: { brands: typeof BRANDS; reverse?: boolean }) 
           >
             <span style={{ position: 'relative', display: 'block', width: '100%', height: '100%' }}>
               <Image
-                src={`/brands/${brand.file}`}
+                src={brandLogoSrc(brand.file)}
                 alt={brand.name}
                 fill
                 sizes="140px"
                 style={{ objectFit: 'contain' }}
               />
             </span>
-          </div>
+          </a>
         ))}
       </div>
     </div>
   );
 }
 
-export default function BrandMarquee() {
-  const mid = Math.ceil(BRANDS.length / 2);
+export default function BrandMarquee({ brands }: { brands: MarqueeBrand[] }) {
+  const mid = Math.ceil(brands.length / 2);
   return (
     <div style={{ borderBottom: '1px solid var(--rule)' }}>
-      <Row brands={BRANDS.slice(0, mid)} />
-      <Row brands={BRANDS.slice(mid)} reverse />
+      <Row brands={brands.slice(0, mid)} />
+      <Row brands={brands.slice(mid)} reverse />
     </div>
   );
 }

@@ -2,14 +2,19 @@
 
 import { useMemo } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import Figure from '@/components/Figure';
-import type { PhotoKey } from '@/lib/images';
+import { useLanguage } from '@/components/LanguageProvider';
 
 export type GalleryItem = {
   name: string;
+  nameAr?: string | null;
+  slug: string;
   category: string;
+  categoryAr?: string | null;
   location: string;
-  photo: PhotoKey;
+  locationAr?: string | null;
+  photo: string;
 };
 
 export type GalleryCategory = {
@@ -20,7 +25,7 @@ export type GalleryCategory = {
 /**
  * Matches the slugs hand-written in src/lib/sectors.ts, so a chip derived
  * from an item name lands on the same URL as one passed in from SECTORS.
- * 'Villas & Palaces' -> 'villas-and-palaces', 'Cafés' -> 'cafes'.
+ * 'Villas & Palaces' -> 'villas-and-palaces'.
  */
 function slugify(name: string): string {
   return name
@@ -54,6 +59,8 @@ export default function ProjectGallery({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { lang } = useLanguage();
+  const pick = (en: string, ar?: string | null) => (lang === 'ar' && ar ? ar : en);
 
   const chips = useMemo<GalleryCategory[]>(
     () =>
@@ -86,7 +93,8 @@ export default function ProjectGallery({
         style={{
           display: 'flex',
           flexWrap: 'wrap',
-          gap: '0.5rem',
+          justifyContent: 'center',
+          gap: '0.6rem',
           marginBottom: 'clamp(2rem, 4vw, 3rem)',
         }}
       >
@@ -119,16 +127,27 @@ export default function ProjectGallery({
         }}
       >
         {visible.map((item, i) => (
-          <article key={item.name} className="hover-lift" style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--rule)' }}>
+          <Link
+            key={item.name}
+            href={`/projects/${item.slug}`}
+            className="hover-lift"
+            style={{
+              display: 'block',
+              backgroundColor: 'var(--surface)',
+              border: '1px solid var(--rule)',
+              borderRadius: 'var(--radius)',
+              overflow: 'hidden',
+            }}
+          >
             <Figure
               photo={item.photo}
               ratio="4 / 3"
               scrim="soft"
               sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
               className="figure-zoom"
-              style={{ border: 'none', borderBottom: '1px solid var(--rule)' }}
+              style={{ border: 'none', borderRadius: 0, borderBottom: '1px solid var(--rule)' }}
             >
-              <span className={`figure-tag${i % 3 === 1 ? ' on-accent' : ''}`}>{item.category}</span>
+              <span className={`figure-tag${i % 3 === 1 ? ' on-accent' : ''}`}>{pick(item.category, item.categoryAr)}</span>
               <span className="figure-caption" style={{ padding: '1.1rem 1.25rem' }}>
                 <span
                   style={{
@@ -139,7 +158,7 @@ export default function ProjectGallery({
                     color: 'rgba(255,255,255,0.82)',
                   }}
                 >
-                  {item.location}
+                  {pick(item.location, item.locationAr)}
                 </span>
               </span>
             </Figure>
@@ -162,7 +181,7 @@ export default function ProjectGallery({
                   letterSpacing: '0.02em',
                 }}
               >
-                {item.name}
+                {pick(item.name, item.nameAr)}
               </h3>
               <span aria-hidden style={{ color: 'var(--primary)', flexShrink: 0 }}>
                 <svg
@@ -180,7 +199,7 @@ export default function ProjectGallery({
                 </svg>
               </span>
             </div>
-          </article>
+          </Link>
         ))}
       </div>
 

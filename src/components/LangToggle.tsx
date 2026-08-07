@@ -1,29 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
-type Lang = 'en' | 'ar';
+import { useLanguage } from './LanguageProvider';
 
 export default function LangToggle() {
-  const [lang, setLang] = useState<Lang>('en');
-
-  const apply = (next: Lang) => {
-    setLang(next);
-    document.documentElement.lang = next;
-    document.documentElement.dir = next === 'ar' ? 'rtl' : 'ltr';
-    localStorage.setItem('mariot-lang', next);
-  };
-
-  useEffect(() => {
-    if (localStorage.getItem('mariot-lang') === 'ar') {
-      apply('ar');
-    }
-  }, []);
+  const { lang, toggleLang, t } = useLanguage();
 
   return (
     <button
-      onClick={() => apply(lang === 'en' ? 'ar' : 'en')}
-      aria-label={lang === 'en' ? 'Switch to Arabic' : 'Switch to English'}
+      onClick={toggleLang}
+      aria-label={t('common.switchToArabic')}
       style={{
         display: 'inline-flex',
         alignItems: 'center',

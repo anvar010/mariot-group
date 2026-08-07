@@ -2,16 +2,18 @@
 
 import { useMemo, useState } from 'react';
 import Image from 'next/image';
-import { BRANDS } from '@/lib/brands';
+import { shopUrl, brandLogoSrc } from '@/lib/brands';
 
-export default function BrandDirectory() {
+export type DirectoryBrand = { name: string; slug: string; file: string };
+
+export default function BrandDirectory({ brands }: { brands: DirectoryBrand[] }) {
   const [query, setQuery] = useState('');
 
   const matches = useMemo(() => {
-    const sorted = [...BRANDS].sort((a, b) => a.name.localeCompare(b.name));
+    const sorted = [...brands].sort((a, b) => a.name.localeCompare(b.name));
     const term = query.trim().toLowerCase();
     return term ? sorted.filter((brand) => brand.name.toLowerCase().includes(term)) : sorted;
-  }, [query]);
+  }, [brands, query]);
 
   return (
     <>
@@ -60,17 +62,24 @@ export default function BrandDirectory() {
           {matches.map((brand) => (
             /* The name carries in alt/title rather than a caption — the logos are
                the identification, and 98 repeated captions only add noise. */
-            <div key={brand.file} className="brand-cell" title={brand.name}>
+            <a
+              key={brand.file}
+              href={shopUrl(brand.slug)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="brand-cell"
+              title={brand.name}
+            >
               <span className="brand-cell-logo">
                 <Image
-                  src={`/brands/${brand.file}`}
+                  src={brandLogoSrc(brand.file)}
                   alt={brand.name}
                   fill
                   sizes="(max-width: 768px) 45vw, 200px"
                   style={{ objectFit: 'contain' }}
                 />
               </span>
-            </div>
+            </a>
           ))}
         </div>
       )}

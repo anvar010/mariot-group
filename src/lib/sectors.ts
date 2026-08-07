@@ -20,7 +20,7 @@ export const SECTORS: Sector[] = [
     photo: 'restaurantDark',
   },
   {
-    name: 'Cafés',
+    name: 'Cafes',
     slug: 'cafes',
     desc: 'Espresso platforms, pastry displays and compact prep areas.',
     photo: 'cafe',

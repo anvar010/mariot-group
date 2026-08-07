@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const SECTORS = [
   { label: 'Restaurant', rate: 2400 },
-  { label: 'Café', rate: 2000 },
+  { label: 'Cafe', rate: 2000 },
   { label: 'Hotel Kitchen', rate: 3200 },
   { label: 'Bakery', rate: 2600 },
   { label: 'Catering / Central Kitchen', rate: 2800 },

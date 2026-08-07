@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 const WORDS = [
   { text: 'restaurants.', color: 'var(--primary)' },
   { text: 'hotels & resorts.', color: 'var(--accent)' },
-  { text: 'cafés & bakeries.', color: 'var(--primary)' },
+  { text: 'cafes & bakeries.', color: 'var(--primary)' },
   { text: 'villas & palaces.', color: 'var(--accent)' },
 ];
 

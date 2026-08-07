@@ -3,8 +3,15 @@ import { PHOTOS, photoSrc, type PhotoKey } from '@/lib/images';
 
 type Scrim = 'none' | 'full' | 'soft';
 
+function isPhotoKey(photo: string): photo is PhotoKey {
+  return Object.prototype.hasOwnProperty.call(PHOTOS, photo);
+}
+
 type FigureProps = {
-  photo: PhotoKey;
+  /** Either a curated catalogue key, or a direct image URL/path — CMS
+   *  content (sectors, projects, brands, branches added from the admin
+   *  dashboard) stores an uploaded file path here instead of a PhotoKey. */
+  photo: PhotoKey | string;
   /** Any CSS aspect-ratio value, e.g. '4 / 3'. Omit when the parent sets a height. */
   ratio?: string;
   /** Viewport-width hint for the srcset. Pass a real value wherever the frame is not full-bleed. */
@@ -41,22 +48,22 @@ export default function Figure({
   style,
   children,
 }: FigureProps) {
-  const source = PHOTOS[photo];
+  const source = isPhotoKey(photo) ? PHOTOS[photo] : null;
+  const src = source ? photoSrc(source) : photo;
 
   return (
     <div
       className={`figure ${SCRIM_CLASS[scrim]} ${className}`.trim()}
-      style={{ aspectRatio: ratio, backgroundColor: source.tone, ...style }}
+      style={{ aspectRatio: ratio, backgroundColor: source?.tone ?? '#1a1a1a', ...style }}
     >
       <Image
-        src={photoSrc(source)}
-        alt={alt ?? source.alt}
+        src={src}
+        alt={alt ?? source?.alt ?? ''}
         fill
         sizes={sizes}
         priority={priority}
         unoptimized
-        placeholder="blur"
-        blurDataURL={source.blurDataURL}
+        {...(source ? { placeholder: 'blur' as const, blurDataURL: source.blurDataURL } : {})}
       />
       {children}
     </div>

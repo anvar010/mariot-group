@@ -2,11 +2,16 @@ import Image from 'next/image';
 import ScrollReveal from '@/components/ScrollReveal';
 import { PHOTOS, photoSrc, type PhotoKey } from '@/lib/images';
 
+function isPhotoKey(photo: string): photo is PhotoKey {
+  return Object.prototype.hasOwnProperty.call(PHOTOS, photo);
+}
+
 type PageHeroProps = {
-  eyebrow: string;
+  eyebrow: React.ReactNode;
   title: React.ReactNode;
   intro?: React.ReactNode;
-  photo: PhotoKey;
+  /** Either a curated catalogue key, or a direct image URL/path from CMS content. */
+  photo: PhotoKey | string;
   /** Right-hand stat rail, e.g. [{ value: '20+', label: 'Years' }]. */
   stats?: { value: string; label: string }[];
   children?: React.ReactNode;
@@ -25,21 +30,21 @@ export default function PageHero({
   stats,
   children,
 }: PageHeroProps) {
-  const source = PHOTOS[photo];
+  const source = isPhotoKey(photo) ? PHOTOS[photo] : null;
+  const src = source ? photoSrc(source) : photo;
 
   return (
     <section className="page-hero">
-      <div className="page-hero-media" style={{ backgroundColor: source.tone }}>
+      <div className="page-hero-media" style={{ backgroundColor: source?.tone ?? '#1a1a1a' }}>
         <Image
-          src={photoSrc(source)}
+          src={src}
           alt=""
           aria-hidden
           fill
           sizes="100vw"
           priority
           unoptimized
-          placeholder="blur"
-          blurDataURL={source.blurDataURL}
+          {...(source ? { placeholder: 'blur' as const, blurDataURL: source.blurDataURL } : {})}
         />
       </div>
       <div aria-hidden className="page-hero-veil" />

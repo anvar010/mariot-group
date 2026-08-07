@@ -1,24 +1,28 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { useLanguage } from './LanguageProvider';
 
 const QUICK_LINKS = [
-  { name: 'About', href: '/about' },
-  { name: 'How We Work', href: '/how-we-work' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'Fabrication', href: '/fabrication' },
-  { name: 'Maintenance', href: '/maintenance' },
-  { name: 'Brands', href: '/brands' },
-  { name: 'Branches', href: '/branches' },
-  { name: 'Contact', href: '/contact' },
+  { key: 'about', href: '/about' },
+  { key: 'howWeWork', href: '/how-we-work' },
+  { key: 'projects', href: '/projects' },
+  { key: 'fabrication', href: '/fabrication' },
+  { key: 'maintenance', href: '/maintenance' },
+  { key: 'brands', href: '/brands' },
+  { key: 'branches', href: '/branches' },
+  { key: 'blog', href: '/blog' },
+  { key: 'contact', href: '/contact' },
 ];
 
 const SECTOR_LINKS = [
-  'Restaurants & Cafés',
-  'Hotels & Resorts',
-  'Bakeries',
-  'Catering & Central Kitchens',
-  'Cloud Kitchens',
-  'Villas & Palaces',
+  'restaurantsCafes',
+  'hotelsResorts',
+  'bakeries',
+  'cateringCentralKitchens',
+  'cloudKitchens',
+  'villasPalaces',
 ];
 
 const SOCIALS = [
@@ -68,6 +72,8 @@ const footerLinkStyle: React.CSSProperties = {
 };
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer style={{ backgroundColor: 'var(--ink)', color: '#fff' }}>
       <div style={{ maxWidth: '1320px', margin: '0 auto', padding: '0 var(--gutter)' }}>
@@ -76,18 +82,18 @@ export default function Footer() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 380px), 1fr))', gap: '2rem', alignItems: 'center', padding: 'clamp(2.5rem, 5vw, 4rem) 0', borderBottom: '1px solid var(--rule-light)' }}>
           <div>
             <h3 className="h2" style={{ color: '#fff', fontSize: 'clamp(1.6rem, 3vw, 2.4rem)' }}>
-              Find your kitchen <span style={{ color: 'var(--primary)' }}>inspiration</span> here
+              {t('footer.newsletterTitlePre')} <span style={{ color: 'var(--primary)' }}>{t('footer.newsletterTitleHighlight')}</span> {t('footer.newsletterTitlePost')}
             </h3>
             <p style={{ color: 'rgba(255,255,255,0.6)', marginTop: '0.75rem', fontSize: '0.95rem' }}>
-              Equipment guides, project stories and offers straight to your inbox.
+              {t('footer.newsletterSub')}
             </p>
           </div>
           <form style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
             <input
               type="email"
               required
-              placeholder="Your email address"
-              aria-label="Email address"
+              placeholder={t('footer.emailPlaceholder')}
+              aria-label={t('footer.emailPlaceholder')}
               style={{
                 flex: '1 1 240px',
                 padding: '1rem 1.25rem',
@@ -101,7 +107,7 @@ export default function Footer() {
               }}
             />
             <button type="submit" className="premium-btn red-btn" style={{ padding: '0.5rem 0.5rem 0.5rem 1.5rem' }}>
-              Join Us
+              {t('footer.joinUs')}
               <span className="btn-circle">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
               </span>
@@ -125,7 +131,7 @@ export default function Footer() {
               />
             </Link>
             <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.95rem', lineHeight: 1.7, marginBottom: '1.75rem', maxWidth: '340px' }}>
-              Professional supplier of commercial kitchen equipment, refrigeration, stainless steel fabrication and laundry solutions across the UAE and GCC.
+              {t('footer.about')}
             </p>
             <div style={{ display: 'flex', gap: '0.6rem' }}>
               {SOCIALS.map((social) => (
@@ -145,11 +151,11 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 style={footerHeading}>Quick Links</h4>
+            <h4 style={footerHeading}>{t('footer.quickLinks')}</h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
               {QUICK_LINKS.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="footer-link" style={footerLinkStyle}>{link.name}</Link>
+                <li key={link.key}>
+                  <Link href={link.href} className="footer-link" style={footerLinkStyle}>{t(`nav.${link.key}`)}</Link>
                 </li>
               ))}
             </ul>
@@ -157,27 +163,27 @@ export default function Footer() {
 
           {/* Sectors */}
           <div>
-            <h4 style={footerHeading}>Sectors</h4>
+            <h4 style={footerHeading}>{t('footer.sectorsWeServe')}</h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-              {SECTOR_LINKS.map((sector) => (
-                <li key={sector}>
-                  <Link href="/sectors" className="footer-link" style={footerLinkStyle}>{sector}</Link>
+              {SECTOR_LINKS.map((sectorKey) => (
+                <li key={sectorKey}>
+                  <Link href="/sectors" className="footer-link" style={footerLinkStyle}>{t(`sectorNames.${sectorKey}`)}</Link>
                 </li>
               ))}
             </ul>
             <a href="https://mariotstore.com" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginTop: '1.5rem', color: 'var(--primary)', fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-              Shop Online →
+              {t('footer.shopOnline')}
             </a>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 style={footerHeading}>Contact Us</h4>
+            <h4 style={footerHeading}>{t('footer.contactUs')}</h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
               <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: '3px' }}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
                 <span style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.95rem', lineHeight: 1.6 }}>
-                  Near Abu Bakkar Siddique Metro Station, Dubai, UAE
+                  {t('footer.address')}
                 </span>
               </li>
               <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
@@ -190,11 +196,11 @@ export default function Footer() {
               </li>
               <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
-                <span style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.95rem' }}>Sat – Thu · 9:00 – 19:00</span>
+                <span style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.95rem' }}>{t('footer.hours')}</span>
               </li>
             </ul>
             <a href="https://wa.me/97142882777" target="_blank" rel="noopener noreferrer" className="btn-secondary-white" style={{ marginTop: '1.5rem', padding: '0.7rem 1.4rem', fontSize: '0.78rem' }}>
-              WhatsApp Us
+              {t('footer.whatsappUs')}
             </a>
           </div>
         </div>
@@ -211,14 +217,14 @@ export default function Footer() {
       <div style={{ borderTop: '1px solid var(--rule-light)' }}>
         <div style={{ maxWidth: '1320px', margin: '0 auto', padding: '1.4rem var(--gutter)', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
           <p style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.45)' }}>
-            © 2026 Mariot Kitchen Equipment. All rights reserved.
+            {t('footer.copyright')}
           </p>
           <p style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.45)', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span aria-hidden>🇦🇪</span> Proudly serving the UAE &amp; GCC since 2004
+            <span aria-hidden>🇦🇪</span> {t('footer.servingSince')}
           </p>
           <div style={{ display: 'flex', gap: '1.75rem' }}>
-            <Link href="#" className="footer-link" style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.45)' }}>Privacy Policy</Link>
-            <Link href="#" className="footer-link" style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.45)' }}>Terms of Service</Link>
+            <Link href="#" className="footer-link" style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.45)' }}>{t('footer.privacyPolicy')}</Link>
+            <Link href="#" className="footer-link" style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.45)' }}>{t('footer.termsOfService')}</Link>
           </div>
         </div>
       </div>

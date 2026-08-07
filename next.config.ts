@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    serverActions: {
+      // Default 1MB is too small for the contact form's BOQ/layout attachment.
+      bodySizeLimit: "10mb",
+    },
+  },
   images: {
     // Photography is served from Unsplash. The search string is pinned to the
     // exact query built by photoSrc() in src/lib/images.ts — keep the two in sync.

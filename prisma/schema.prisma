@@ -1,0 +1,192 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model ContactSubmission {
+  id            Int      @id @default(autoincrement())
+  name          String
+  phone         String
+  company       String?
+  email         String?
+  projectType   String
+  emirate       String
+  budget        String?
+  startDate     String?
+  details       String?  @db.Text
+  contactMethod String
+  attachmentUrl String?
+  createdAt     DateTime @default(now())
+}
+
+model ConsultationRequest {
+  id             Int      @id @default(autoincrement())
+  name           String
+  phone          String
+  email          String?
+  visitType      String
+  projectStage   String
+  emirate        String
+  address        String?
+  preferredDate  String?
+  preferredTime  String?
+  notes          String?  @db.Text
+  createdAt      DateTime @default(now())
+}
+
+model RestaurantOpeningRequest {
+  id            Int      @id @default(autoincrement())
+  conceptName   String
+  conceptType   String
+  cuisine       String?
+  seats         String?
+  targetDate    String?
+  location      String?
+  investment    String?
+  currentStage  String?
+  needs         String? @db.Text
+  contactName   String
+  phone         String
+  email         String?
+  notes         String? @db.Text
+  createdAt     DateTime @default(now())
+}
+
+model BlogPost {
+  id            Int      @id @default(autoincrement())
+  slug          String   @unique
+  title         String
+  titleAr       String?
+  excerpt       String?  @db.Text
+  excerptAr     String?  @db.Text
+  content       String   @db.Text
+  contentAr     String?  @db.Text
+  coverImage    String?
+  publishedAt   DateTime?
+  createdAt     DateTime @default(now())
+}
+
+model Sector {
+  id                Int      @id @default(autoincrement())
+  slug              String   @unique
+  name              String
+  nameAr            String?
+  desc              String   @db.Text
+  descAr            String?  @db.Text
+  photo             String
+  h1                String?
+  h1Ar              String?
+  subtitle          String?  @db.Text
+  subtitleAr        String?  @db.Text
+  delivers          Json?
+  deliversAr        Json?
+  caseTitle         String?
+  caseTitleAr       String?
+  caseSub           String?  @db.Text
+  caseSubAr         String?  @db.Text
+  caseHighlights    Json?
+  caseHighlightsAr  Json?
+  caseStats         Json?
+  caseStatsAr       Json?
+  ctaTitle          String?
+  ctaTitleAr        String?
+  ctaSubtitle       String?  @db.Text
+  ctaSubtitleAr     String?  @db.Text
+  order             Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model Project {
+  id            Int      @id @default(autoincrement())
+  slug          String   @unique
+  name          String
+  nameAr        String?
+  category      String
+  categoryAr    String?
+  location      String?
+  locationAr    String?
+  photo         String
+  description   String   @db.Text
+  descriptionAr String?  @db.Text
+  scope         String
+  scopeAr       String?
+  isFabrication Boolean  @default(false)
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model FabricationCapability {
+  id        Int      @id @default(autoincrement())
+  title     String
+  titleAr   String?
+  desc      String   @db.Text
+  descAr    String?  @db.Text
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model FabricationProcessStep {
+  id        Int      @id @default(autoincrement())
+  step      String
+  stepAr    String?
+  desc      String   @db.Text
+  descAr    String?  @db.Text
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Brand {
+  id         Int      @id @default(autoincrement())
+  slug       String   @unique
+  name       String
+  file       String
+  categories Json
+  order      Int      @default(0)
+  createdAt  DateTime @default(now())
+}
+
+model Branch {
+  id         Int      @id @default(autoincrement())
+  slug       String   @unique
+  name       String
+  nameAr     String?
+  location   String
+  locationAr String?
+  emirate    String
+  emirateAr  String?
+  email      String
+  phone      String
+  whatsapp   String
+  role       String?
+  roleAr     String?
+  mapUrl     String   @db.Text
+  mapEmbed   String   @db.Text
+  order      Int      @default(0)
+  createdAt  DateTime @default(now())
+}
+
+model UrgentRequest {
+  id            Int      @id @default(autoincrement())
+  urgency       String
+  problem       String
+  equipmentType String?
+  description   String?  @db.Text
+  attachmentUrl String?
+  contactName   String
+  businessName  String?
+  phone         String
+  email         String?
+  emirate       String
+  createdAt     DateTime @default(now())
+}
