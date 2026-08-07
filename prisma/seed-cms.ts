@@ -1,12 +1,13 @@
 import { PrismaClient } from '../src/generated/prisma/client';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
+import { getDbConfig } from '../src/lib/dbConfig';
 import { SECTORS } from '../src/lib/sectors';
 import { SECTOR_DETAILS } from '../src/lib/sectorDetails';
 import { GENERAL_PROJECTS, FABRICATION_PROJECTS } from '../src/lib/projects';
 import { BRANDS } from '../src/lib/brands';
 import { BRANCHES } from '../src/lib/branches';
 
-const adapter = new PrismaMariaDb(process.env.DATABASE_URL!);
+const adapter = new PrismaMariaDb(getDbConfig());
 const db = new PrismaClient({ adapter });
 
 /* Good-faith Arabic translation pass — no official Arabic copy exists for

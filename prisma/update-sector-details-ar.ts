@@ -1,8 +1,9 @@
 import { PrismaClient } from '../src/generated/prisma/client';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
+import { getDbConfig } from '../src/lib/dbConfig';
 import { SECTOR_DETAILS_AR } from '../src/lib/sectorDetailsAr';
 
-const adapter = new PrismaMariaDb(process.env.DATABASE_URL!);
+const adapter = new PrismaMariaDb(getDbConfig());
 const db = new PrismaClient({ adapter });
 
 async function main() {

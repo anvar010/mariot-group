@@ -2,6 +2,7 @@
 // npm install --save-dev prisma dotenv
 import { config as loadEnv } from "dotenv";
 import { defineConfig } from "prisma/config";
+import { getDatabaseUrl } from "./src/lib/dbConfig";
 
 // Prisma's CLI only auto-loads a file named exactly ".env" — it doesn't know
 // about .env.local or .env.live, so both are loaded explicitly here.
@@ -13,6 +14,9 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    url: process.env["DATABASE_URL"],
+    // Built from separate DB_HOST/DB_USER/DB_PASSWORD/DB_NAME/DB_PORT vars —
+    // see src/lib/dbConfig.ts. Prisma's CLI specifically needs one URL
+    // string here, unlike the app itself, which uses the config object form.
+    url: getDatabaseUrl(),
   },
 });
