@@ -12,19 +12,25 @@ const container: React.CSSProperties = {
   padding: '0 var(--gutter)',
 };
 
-export async function generateStaticParams() {
-  const projects = await db.project.findMany({ select: { slug: true } });
-  return projects.map((p) => ({ slug: p.slug }));
-}
+/* Renders on request rather than at build time, so a build never fails
+   because the database wasn't reachable from the build environment, and
+   new projects added from the admin dashboard show up without a rebuild. */
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const project = await db.project.findUnique({ where: { slug } });
-  if (!project) return {};
-  return {
-    title: `${project.name} — Mariot Kitchen Equipment`,
-    description: project.description,
-  };
+  try {
+    const project = await db.project.findUnique({ where: { slug } });
+    if (!project) return {};
+    return {
+      title: `${project.name} — Mariot Kitchen Equipment`,
+      description: project.description,
+    };
+  } catch {
+    // An unreachable database shouldn't fail the whole build — the page
+    // component below still runs and surfaces a real error at request time.
+    return {};
+  }
 }
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {

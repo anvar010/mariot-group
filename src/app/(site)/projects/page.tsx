@@ -11,6 +11,11 @@ export const metadata = {
     'Selected turn-key commercial kitchen deliveries across the UAE — hotels, resorts, restaurants, hospitals, bakeries and central kitchens.',
 };
 
+/* Reads CMS data, so it must render per-request rather than at build time —
+   a build should never fail because the database wasn't reachable from the
+   build environment. */
+export const dynamic = 'force-dynamic';
+
 const container: React.CSSProperties = {
   maxWidth: '1320px',
   margin: '0 auto',

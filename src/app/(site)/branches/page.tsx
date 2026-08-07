@@ -11,6 +11,11 @@ export const metadata = {
     'Mariot showrooms and service centres across Dubai, Abu Dhabi, Al Ain and Sharjah — equipment, consultation, installation and after-sales support.',
 };
 
+/* Reads CMS data, so it must render per-request rather than at build time —
+   a build should never fail because the database wasn't reachable from the
+   build environment. */
+export const dynamic = 'force-dynamic';
+
 const container: React.CSSProperties = {
   maxWidth: '1320px',
   margin: '0 auto',

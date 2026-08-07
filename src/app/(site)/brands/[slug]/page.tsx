@@ -11,19 +11,25 @@ const container: React.CSSProperties = {
   padding: '0 var(--gutter)',
 };
 
-export async function generateStaticParams() {
-  const brands = await db.brand.findMany({ select: { slug: true } });
-  return brands.map((b) => ({ slug: b.slug }));
-}
+/* Renders on request rather than at build time, so a build never fails
+   because the database wasn't reachable from the build environment, and
+   new brands added from the admin dashboard show up without a rebuild. */
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const brand = await db.brand.findUnique({ where: { slug } });
-  if (!brand) return {};
-  return {
-    title: `${brand.name} — Brands We Supply — Mariot Kitchen Equipment`,
-    description: `${brand.name} equipment supplied, installed and supported by Mariot Kitchen Equipment across the UAE and GCC.`,
-  };
+  try {
+    const brand = await db.brand.findUnique({ where: { slug } });
+    if (!brand) return {};
+    return {
+      title: `${brand.name} — Brands We Supply — Mariot Kitchen Equipment`,
+      description: `${brand.name} equipment supplied, installed and supported by Mariot Kitchen Equipment across the UAE and GCC.`,
+    };
+  } catch {
+    // An unreachable database shouldn't fail the whole build — the page
+    // component below still runs and surfaces a real error at request time.
+    return {};
+  }
 }
 
 export default async function BrandDetailPage({ params }: { params: Promise<{ slug: string }> }) {

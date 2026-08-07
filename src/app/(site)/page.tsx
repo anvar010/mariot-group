@@ -10,6 +10,11 @@ import BrandMarquee from '@/components/BrandMarquee';
 import { db } from '@/lib/db';
 import Link from 'next/link';
 
+/* Reads CMS data (brand marquee), so it must render per-request rather than
+   at build time — a build should never fail because the database wasn't
+   reachable from the build environment. */
+export const dynamic = 'force-dynamic';
+
 const container: React.CSSProperties = {
   maxWidth: '1320px',
   margin: '0 auto',

@@ -100,19 +100,25 @@ function renderCaseHighlights(highlights: CaseHighlight[]) {
   );
 }
 
-export async function generateStaticParams() {
-  const sectors = await db.sector.findMany({ select: { slug: true } });
-  return sectors.map((s) => ({ slug: s.slug }));
-}
+/* Renders on request rather than at build time, so a build never fails
+   because the database wasn't reachable from the build environment, and
+   new sectors added from the admin dashboard show up without a rebuild. */
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const sector = await db.sector.findUnique({ where: { slug } });
-  if (!sector) return {};
-  return {
-    title: `${sector.name} — Sectors We Serve — Mariot Kitchen Equipment`,
-    description: sector.subtitle ?? sector.desc,
-  };
+  try {
+    const sector = await db.sector.findUnique({ where: { slug } });
+    if (!sector) return {};
+    return {
+      title: `${sector.name} — Sectors We Serve — Mariot Kitchen Equipment`,
+      description: sector.subtitle ?? sector.desc,
+    };
+  } catch {
+    // An unreachable database shouldn't fail the whole build — the page
+    // component below still runs and surfaces a real error at request time.
+    return {};
+  }
 }
 
 export default async function SectorDetailPage({ params }: { params: Promise<{ slug: string }> }) {

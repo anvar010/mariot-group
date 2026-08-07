@@ -20,12 +20,18 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = await db.blogPost.findUnique({ where: { slug } });
-  if (!post) return {};
-  return {
-    title: `${post.title} — Mariot Kitchen Equipment`,
-    description: post.excerpt ?? undefined,
-  };
+  try {
+    const post = await db.blogPost.findUnique({ where: { slug } });
+    if (!post) return {};
+    return {
+      title: `${post.title} — Mariot Kitchen Equipment`,
+      description: post.excerpt ?? undefined,
+    };
+  } catch {
+    // An unreachable database shouldn't fail the whole build — the page
+    // component below still runs and surfaces a real error at request time.
+    return {};
+  }
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {

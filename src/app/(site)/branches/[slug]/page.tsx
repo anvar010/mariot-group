@@ -57,19 +57,25 @@ const iconMail = (
   </svg>
 );
 
-export async function generateStaticParams() {
-  const branches = await db.branch.findMany({ select: { slug: true } });
-  return branches.map((b) => ({ slug: b.slug }));
-}
+/* Renders on request rather than at build time, so a build never fails
+   because the database wasn't reachable from the build environment, and
+   new branches added from the admin dashboard show up without a rebuild. */
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const branch = await db.branch.findUnique({ where: { slug } });
-  if (!branch) return {};
-  return {
-    title: `${branch.name} — Mariot Kitchen Equipment`,
-    description: `${branch.name} — ${branch.location}. ${branch.role ?? ''}.`,
-  };
+  try {
+    const branch = await db.branch.findUnique({ where: { slug } });
+    if (!branch) return {};
+    return {
+      title: `${branch.name} — Mariot Kitchen Equipment`,
+      description: `${branch.name} — ${branch.location}. ${branch.role ?? ''}.`,
+    };
+  } catch {
+    // An unreachable database shouldn't fail the whole build — the page
+    // component below still runs and surfaces a real error at request time.
+    return {};
+  }
 }
 
 export default async function BranchDetailPage({ params }: { params: Promise<{ slug: string }> }) {

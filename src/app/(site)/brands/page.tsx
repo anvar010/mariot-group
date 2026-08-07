@@ -10,6 +10,11 @@ export const metadata = {
     'Browse the global manufacturers Mariot Kitchen Equipment supplies across the UAE and GCC — cooking, refrigeration, coffee, food prep, bakery, laundry and warewashing equipment.',
 };
 
+/* Reads CMS data, so it must render per-request rather than at build time —
+   a build should never fail because the database wasn't reachable from the
+   build environment. */
+export const dynamic = 'force-dynamic';
+
 const container: React.CSSProperties = {
   maxWidth: '1320px',
   margin: '0 auto',
