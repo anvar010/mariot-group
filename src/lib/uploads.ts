@@ -2,7 +2,21 @@ import { randomUUID } from 'crypto';
 import { mkdir, writeFile } from 'fs/promises';
 import path from 'path';
 
-const UPLOAD_DIR = path.join(process.cwd(), 'public', 'uploads');
+/**
+ * Where uploaded files actually live on disk. Defaults to public/uploads
+ * (served automatically by Next's static handling) for local dev and any
+ * host that keeps the app directory around between deploys.
+ *
+ * Set UPLOAD_DIR to override this — needed on hosts like Hostinger that
+ * deploy each build into a fresh versioned folder, where anything under
+ * public/uploads would be wiped on the next deploy. When UPLOAD_DIR points
+ * outside public/, the route handler at src/app/uploads/[...path]/route.ts
+ * serves the files instead of Next's static passthrough.
+ */
+export const UPLOAD_DIR = process.env.UPLOAD_DIR
+  ? path.resolve(process.cwd(), process.env.UPLOAD_DIR)
+  : path.join(process.cwd(), 'public', 'uploads');
+
 const MAX_BYTES = 10 * 1024 * 1024; // 10MB
 
 const IMAGE_EXTENSION_BY_MIME: Record<string, string> = {
