@@ -1,13 +1,7 @@
 import type { NextConfig } from "next";
-import { config as loadEnv } from "dotenv";
 
-// Next.js auto-loads .env.local in every environment, so local dev needs no
-// extra step. It has no built-in notion of .env.live, so that's loaded here
-// explicitly for production — a no-op if the platform already injects these
-// vars directly (dotenv never overwrites an existing process.env value).
-if (process.env.NODE_ENV === "production") {
-  loadEnv({ path: ".env.live" });
-}
+// Next.js auto-loads .env in every environment — nothing extra needed here.
+// A single .env file covers both local dev and production; see .env.example.
 
 const nextConfig: NextConfig = {
   experimental: {
